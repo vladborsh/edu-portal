@@ -1,0 +1,63 @@
+<header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-5">
+        <div class="wrapper">
+          <p class="title">
+            <b>Институт компьютетных систем</b>
+          </p>
+          <p class="sub-title">
+            Одесский Национальный политехнический университет
+          </p>
+        </div>
+      </div>
+      <div class="offset-md-2 col-md-4 offset-2 col-8 d-flex justify-content-center align-items-center">
+        <div class="icon-wrapper">
+          <div class="user-icon">
+            <img src="../../public/img/avatar.jpg" class="avatar" alt="">
+          </div>
+        </div>
+        <div class="signin-data d-flex">
+          <div class="person_name">
+            <p> Дженни Томпсон</p>
+          </div>
+          <div class="arrow-wrapper">
+            <a href="">
+              <i class="fa fa-user-o" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">ИКС ОНПУ</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="students">
+              <i class="fa fa-home" aria-hidden="true"></i> Студенты</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="teachers">
+              <i class="fa fa-user-o" aria-hidden="true"></i> Преподаватели</a>
+          </li>
+          <li class="nav-item " ngbDropdown>
+            <a class="nav-link dropdown-toggle" href="javascipt:void(0)" id="dropdowEduProcess" ngbDropdownToggle>
+              <i class="fa fa-user-o" aria-hidden="true"></i> Учебный процесс</a>
+            <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdowEduProcess">
+              <a class="dropdown-item" routerLink="subjects">Предметы</a>
+              <a class="dropdown-item" routerLink="specialities">Специальности</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>

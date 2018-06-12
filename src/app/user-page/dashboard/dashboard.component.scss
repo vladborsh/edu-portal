@@ -1,0 +1,201 @@
+.main-section {
+  min-height: calc(100vh - 60px);
+  height: 100%;
+  margin-top: 20px;
+  .main-part {
+    .wrapper {
+      width: 100%;
+    }
+  }
+  .notifications {
+    width: 100%;
+    .notification {
+      width: 100%;
+      height: 73px;
+      border: 1px solid #dcdcdc;
+      border-radius: 5px;
+      padding: 20px 20px 20px 0;
+      .message,
+      .close {
+        color: #99999a;
+        font-size: 1em;
+        font-weight: 600;
+        a,
+        a:hover,
+        a:visited {
+          color: #6c9cf2;
+          text-decoration: underline;
+        }
+      }
+      .message {
+        margin-left: 40px;
+      }
+      .img-wrapper {
+        width: 15px;
+      }
+    }
+  }
+  .head {
+    margin-top: 20px;
+    .term {
+      .wrapper {
+        margin: 0 5px;
+        .numerator > p,
+        .denumerator > p {
+          margin: 3px 0;
+          text-align: center;
+        }
+        .numerator {
+          border-bottom: 1px solid black;
+        }
+      }
+
+      .title {
+        font-size: 1em;
+        font-weight: 600;
+      }
+    }
+  }
+  #accordion {
+    display: none;
+  }
+  .timetable {
+    margin-top: 20px;
+    padding: 40px;
+    width: 100%;
+    min-height: 345px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 1px 5px 20px -1px rgba(0, 0, 0, 0.2);
+    .day {
+      width: 130px;
+      height: 70px;
+      border-radius: 5px;
+      padding: 5px;
+      margin: 5px;
+      p {
+        color: white;
+        font-size: 0.8em;
+        margin-bottom: 5px;
+      }
+    }
+    .lecture {
+      background-color: #6ed4a8;
+    }
+    .lab {
+      background-color: #fe3678;
+    }
+    .practice {
+      background-color: #1875f0;
+    }
+    .empty {
+      background-color: white;
+    }
+  }
+}
+.title {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-top: 20px;
+}
+.activities {
+  margin-top: 20px;
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 40px;
+  box-shadow: 1px 5px 20px -1px rgba(0, 0, 0, 0.2);
+  .activity-item {
+    padding: 10px;
+    margin-bottom: 20px;
+    p {
+      margin: 0;
+    }
+    .activity-icon {
+      padding: 5px 0;
+    }
+    .basic-info {
+      margin: 0 20px;
+      .activity-title {
+        a,
+        a:visited {
+          text-decoration: none;
+          color: black;
+        }
+        a:hover {
+          color: #6f9ef4;
+          text-decoration: none;
+        }
+      }
+      .additional-info {
+        margin-top: 10px;
+        font-size: 0.8em;
+        color: #cacaca;
+      }
+    }
+    .status-wrapper,
+    .encouragement-wrapper {
+      margin: 0 20px;
+    }
+    .status-title,
+    .encouragement-title {
+      font-size: 0.8em;
+      color: #cacaca;
+    }
+    .status-value,
+    .encouragement-value {
+      font-size: 0.8em;
+      color: #cacaca;
+    }
+  }
+}
+
+.side-part {
+  display: block;
+  .greeting {
+    font-weight: 600;
+    font-size: 1.2em;
+  }
+  .personal-block {
+    width: 100%;
+    background-color: white;
+    padding: 40px;
+    .basic-personal-info {
+      margin-bottom: 20px;
+      .avatar {
+        width: 50px;
+        height: 50px;
+      }
+      .initials {
+        margin: 0 10px;
+        p {
+          margin: 0;
+        }
+        .name {
+          font-size: 1em;
+          margin-bottom: 5px;
+        }
+        .student-mail {
+          font-size: 0.9em;
+          color: #dcdcdc;
+        }
+      }
+    }
+    .common-personal-info {
+      p {
+        font-size: 0.9em;
+      }
+    }
+    .personal-page-button {
+      height: 38px;
+      width: 200px;
+      padding: 0 10px;
+      color: #1875f0;
+      font-size: 0.8em;
+      font-weight: 600;
+      background-color: white;
+      border: 1px solid #1875f0;
+      border-radius: 5px;
+    }
+  }
+}

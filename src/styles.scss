@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+.box-shadow {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+}
+
+.rounded {
+  border-radius: 0.25rem !important;
+}
+
+.bg-white {
+  background-color: #fff!important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #dee2e6!important;
+}
+
+.unborder {
+  border: none;
+}
