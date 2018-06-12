@@ -1,0 +1,88 @@
+.main-part {
+  margin-top: 20px;
+  .case {
+    margin-top: 10px;
+    width: 100%;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 1px 5px 20px -1px rgba(0, 0, 0, 0.2);
+  }
+  .main-info {
+    margin-top: 0;
+    .avatar-wrapper {
+      margin-right: 20px;
+      .student-avatar {
+        width: 120px;
+        height: 130px;
+      }
+    }
+    .info-wrapper {
+      .fio {
+        font-weight: 600;
+        font-size: 0.9em;
+      }
+      p {
+        font-size: 0.8em;
+        margin: 5px 0;
+      }
+    }
+  }
+  .info-title {
+    p {
+      font-size: 1.3em;
+      font-weight: 400;
+      margin: 10px 0;
+    }
+  }
+  .education-info {
+    p {
+      font-size: 0.8em;
+      margin: 5px 0;
+    }
+    a {
+      color: black;
+      text-decoration-style: dashed;
+    }
+    a:hover {
+      color: black;
+      text-decoration-style: dashed;
+    }
+  }
+}
+.side-part {
+  margin-top: 20px;
+  .title {
+    font-size: 1.3em;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  .subjects {
+    background-color: white;
+    width: 100%;
+    padding: 45px;
+    p {
+      margin: 0;
+    }
+    .subject-item {
+      width: 80%;
+      margin-bottom: 10px;
+      .subject-title,
+      .subject-title:visited {
+        font-size: 0.9em;
+        color: #333333;
+        text-decoration: none;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+      .subject-title:hover {
+        color: #6f9ef4;
+        text-decoration: none;
+      }
+      .subject-teacher {
+        font-size: 0.8em;
+        color: #d0d0d0;
+        font-weight: lighter;
+      }
+    }
+  }
+}

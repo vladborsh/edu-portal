@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { JournalComponent } from './journal/journal.component';
 import { OutclassActivitiesComponent } from './outclass-activities/outclass-activities.component';
 import { ActivityDetailsComponent } from './activity-details/activity-details.component';
+import { PersonalComponent } from './personal/personal.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { ActivityDetailsComponent } from './activity-details/activity-details.co
     UserPageComponent, 
     JournalComponent, 
     OutclassActivitiesComponent, 
-    ActivityDetailsComponent
+    ActivityDetailsComponent, PersonalComponent
   ],
   bootstrap: [],
 })
