@@ -1,33 +1,40 @@
 <section class="main-section">
   <div class="container">
-      <div class="row filters d-flex flex-lg-row">
-          <div class="col-md-2">
-              <select name="" id="" class="custom cafedra">
-                  <option disabled>Выберите кафедру</option>
-                  <option value="">Test</option>
-                  <option value="">Test</option>
-              </select>
+    <div class="row filters d-flex flex-lg-row">
+      <div class="col-md-2 col-12">
+        <div class="dropdown show">
+          <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Выберите кафедру
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">Action</a>
           </div>
-
-          <div class="col-md-2">
-              <select name="" id="" class="custom course">
-                  <option disabled>Выберите курс</option>
-                  <option value="">Test</option>
-                  <option value="">Test</option>
-              </select>
-          </div>
-
-          <div class="col-md-5">
-              <div class="wrapper d-flex">
-                  <input type="text" class="file-way custom" disabled placeholder="Выберите файл">
-                  <input type="button" class="button import-button" value="Импортировать">
-              </div>
-          </div>
-
-          <div class="col-md-3" >
-              <button class="button" style="width: 100%">Добавить преподавателя</button>
-          </div>
+        </div>
       </div>
+      <div class="col-md-2 col-12">
+        <div class="dropdown show">
+          <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Выберите курс
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">Action</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 col-12">
+        <div class="wrapper d-flex">
+          <button class="btn btn-light col-8" style="margin-right: 10px; background-color: #dae0e5; border: 1px solid #dae0e5">Выберите файл</button>
+          <button class="btn btn-primary">
+            Импортировать
+          </button>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-12">
+        <button class="btn btn-primary" style="width: 100%">Добавить преподавателя</button>
+      </div>
+    </div>
       <div class="row stub">
           <div class="col-md-12">
               <p class="stub-text">
@@ -48,58 +55,13 @@
                   </div>
                   <div class="col-4 d-flex justify-content-end">
                       <i class="fa fa-info-circle" aria-hidden="true"></i>
-                      <input type="button" class="but info" value="Подробнее">
+                      <button class="but btn btn-primary">
+                        Подробнее
+                      </button>
                   </div>
               </div>
           </div>
-          <div class="col-12 item-wrapper">
-              <div class="row">
-                  <div class="col-8 d-flex">
-                      <p class="name">
-                          Тесленко Павел Александрович
-                      </p>
-                      <a href="#" class="edit-button">
-                          <img src="../../public/img/edit-button.png" alt="">
-                      </a>
-                  </div>
-                  <div class="col-4 d-flex justify-content-end">
-                      <i class="fa fa-info-circle" aria-hidden="true"></i>
-                      <input type="button" class="but info" value="Подробнее">
-                  </div>
-              </div>
-          </div>
-          <div class="col-12 item-wrapper">
-              <div class="row">
-                  <div class="col-8 d-flex">
-                      <p class="name">
-                          Тесленко Павел Александрович
-                      </p>
-                      <a href="#" class="edit-button">
-                          <img src="../../public/img/edit-button.png" alt="">
-                      </a>
-                  </div>
-                  <div class="col-4 d-flex justify-content-end">
-                      <i class="fa fa-info-circle" aria-hidden="true"></i>
-                      <input type="button" class="but info" value="Подробнее">
-                  </div>
-              </div>
-          </div>
-          <div class="col-12 item-wrapper">
-              <div class="row">
-                  <div class="col-8 d-flex">
-                      <p class="name">
-                          Тесленко Павел Александрович
-                      </p>
-                      <a href="#" class="edit-button">
-                          <img src="../../public/img/edit-button.png" alt="">
-                      </a>
-                  </div>
-                  <div class="col-4 d-flex justify-content-end">
-                      <i class="fa fa-info-circle" aria-hidden="true"></i>
-                      <input type="button" class="but info" value="Подробнее">
-                  </div>
-              </div>
-          </div>
+
       </div>
   </div>
 </section>

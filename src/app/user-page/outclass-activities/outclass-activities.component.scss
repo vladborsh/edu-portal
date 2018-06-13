@@ -3,24 +3,6 @@
   height: 100%;
   margin-top: 20px;
   .main-part {
-    .add-activity {
-      background-color: #1875f0;
-      color: white;
-      font-size: 0.9em;
-      height: 38px;
-      width: 100%;
-      border: 1px solid #1875f0;
-      border-radius: 5px;
-    }
-    .add-activity-s {
-      display: none !important;
-    }
-    .activities-select {
-      width: 200px;
-      font-size: 0.8em;
-      background-color: white;
-      box-shadow: 1px 5px 20px -1px rgba(0, 0, 0, 0.2);
-    }
     .bell-button-wrapper {
       .belL-button {
         background-color: white;
@@ -98,9 +80,6 @@
         p {
           margin: 0;
         }
-        .activity-icon {
-          padding: 5px 0;
-        }
         .basic-info {
           margin: 0 20px;
           .activity-title {
@@ -129,7 +108,9 @@
             .encouragement-wrapper,
             .status-wrapper,
             .time-wrapper {
-              width: 200px;
+              .value {
+                margin-left: 5px;
+              }
             }
           }
         }
@@ -186,6 +167,36 @@
           font-weight: lighter;
         }
       }
+    }
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+
+  .activities {
+    padding: 10px !important;
+    .basic-info {
+      margin: 0 5px;
+      .additional-info {
+        margin-top: 10px;
+        font-size: 0.8em;
+        color: #cacaca;
+      }
+    }
+    .additional-info {
+      .creator-wrapper, .encouragement-wrapper {
+        width: 300px;
+      }
+      .status-wrapper, .time-wrapper {
+        display: none;
+      }
+    }
+    .btn-primary {
+      margin: 10px auto 0 auto;
+      text-align: center;
+    }
+    .send-prop {
+      margin-top: 10px !important;
     }
   }
 }

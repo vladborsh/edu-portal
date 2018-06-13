@@ -2,16 +2,18 @@
   <div class="container">
     <div class="row">
       <div class="main-part col-md-12 col-lg-8">
-        <div class="row" style="padding-right: 15px">
-          <div class="col-7 col-md-4 col-lg-4">
-            <select name="" id="" class="form-control activities-select">
-              <option value="all">Все активности </option>
-              <option value="my">Мои активности </option>
-            </select>
+        <div class="row d-flex justify-content-between" style="padding-right: 15px">
+          <div class="dropdown col-7 col-md-4 col-lg-4">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Активности
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Все активности</a>
+                <a class="dropdown-item" href="#">Мои активности</a>
+              </div>
           </div>
-          <div class="col-3 offset-md-3 col-md-3">
-            <input type="button" value="Добавить" class="add-activity">
-            <input type="button" value="+" class="add-activity-s">
+          <div class="col-3 d-flex justify-content-end">
+            <button class="btn btn-primary">Добавить</button>
           </div>
         </div>
 
@@ -19,11 +21,8 @@
           <div class="col-md-12 col-12 d-flex flex-column">
             <div class="activities">
               <div class="row activity-item d-flex align-items-top">
-                <div class="wrapper d-flex col-9">
-                  <div class="activity-icon col-md-1 d-flex align-self-baseline">
-                    <img src="../../public/img/file-icon.png" alt="">
-                  </div>
-                  <div class="basic-info d-flex flex-column">
+                <div class="wrapper d-flex col-lg-9 col-md-9 col-12">
+                  <div class="basic-info d-flex flex-column col-12">
                     <div class="activity-title">
                       <a href="#">
                         Написание простых не очень длинных тезисов для конференции “PM Day”
@@ -52,7 +51,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="wrapper col-md-12 col-lg-3 col-12">
+                <div class="wrapper col-md-3 col-lg-3 col-12 center-block">
                   <button class="btn btn-primary">Заявка</button>
                 </div>
               </div>
