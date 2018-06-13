@@ -4,7 +4,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AdminPageModule } from './admin-page/admin-page.module';
-import { LoginModule } from './login/login.module';
 import { AppRoutingModule } from './app.routing';
 
 @NgModule({
