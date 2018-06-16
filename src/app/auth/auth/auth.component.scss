@@ -1,0 +1,63 @@
+$light-blue: #4786ff;
+$light-grey: #dfdddc;
+
+@font-face {
+  src: url(../../../assets/fonts/Proxima.otf);
+  font-family: "proxima";
+}
+
+body {
+  font-family: "proxima";
+  color: #333333;
+}
+
+.main-wrapper {
+  height: 100vh;
+  width: 100%;
+  background-image: url("../../../assets/img/logInBack.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  .substrate {
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 100%;
+    width: 100%;
+    .logo {
+      margin: 10vh auto 10vh auto;
+      img {
+        height: 65px;
+      }
+    }
+    .form-wrapper {
+      background-color: #ffffff;
+      border-radius: 6px;
+      padding: 50px 100px;
+    }
+    footer {
+      margin-top: 20px;
+      .footer-text {
+        font-size: 0.7em;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 600px) {
+  .main-wrapper {
+    .substrate {
+      .form-wrapper {
+        padding: 50px 20px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .main-wrapper {
+    .substrate {
+      .form-wrapper {
+        padding: 50px 50px;
+      }
+    }
+  }
+}

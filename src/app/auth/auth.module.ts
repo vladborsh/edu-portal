@@ -3,17 +3,18 @@ import { CommonModule } from '@angular/common';
 import { SigninComponent } from './signin/signin.component';
 import { AuthRoutingModule } from './auth.routing';
 import { SignupComponent } from './signup/signup.component';
-import { TokenInterceptor } from '../interceptors/token.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AuthComponent } from './auth/auth.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   imports: [
     CommonModule,
     AuthRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-  ],
-  declarations: [SigninComponent, SignupComponent]
+  declarations: [SigninComponent, SignupComponent, AuthComponent, ForgotPasswordComponent],
+  providers: []
 })
 export class AuthModule { }
