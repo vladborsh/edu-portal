@@ -1,0 +1,90 @@
+<div class="modal-header">
+  <h4 class="modal-title">Добавление студента</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="newStudentForm"  novalidate>
+    <div class="form-group">
+      <input [(ngModel)]="student.name" formControlName="name" type="text" name="name" class="form-control" placeholder="ФИО студента">
+    </div>
+    <div class="form-group">
+        <input [(ngModel)]="student.email" formControlName="email" type="email" name="email" class="form-control" placeholder="Email адресс">
+      </div>
+    <div class="form-group">
+      <div class="input-group">
+        <input [(ngModel)]="student.birthdate" formControlName="birthdate" class="form-control" placeholder="Дата рождения 1990-01-01" name="birthdate" ngbDatepicker #bDate="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="bDate.toggle()" type="button">
+            <i class="fa fa-calendar"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <input [(ngModel)]="student.address" formControlName="address" type="text" name="address" class="form-control" placeholder="Адресс проживания">
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <div ngbDropdown>
+            <button class="btn btn-outline-secondary btn-block" id="intituteDropdown" ngbDropdownToggle>{{student.institute || 'Институт'}}</button>
+            <div ngbDropdownMenu aria-labelledby="intituteDropdown">
+              <button class="dropdown-item" *ngFor="let institute of institutes$ | async" (click)="selectInstitute(institute)">{{institute.title}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div ngbDropdown>
+            <button class="btn btn-outline-secondary btn-block" id="groupDropdown" ngbDropdownToggle>{{student.group || 'Группа'}}</button>
+            <div ngbDropdownMenu aria-labelledby="groupDropdown">
+              <button class="dropdown-item" *ngFor="let group of institute.groups" (click)="student.group=group.title">{{group.title}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <input [(ngModel)]="student.admissionDate" formControlName="admissionDate" class="form-control" placeholder="Дата зачисления  2010-01-01" name="admissionDate" ngbDatepicker #admDate="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="admDate.toggle()" type="button">
+            <i class="fa fa-calendar"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-12">
+          <div ngbDropdown>
+            <button class="btn btn-outline-secondary btn-block" id="groupDropdown" ngbDropdownToggle>{{student.educationForm}}</button>
+            <div ngbDropdownMenu aria-labelledby="groupDropdown">
+              <button class="dropdown-item" (click)="student.educationForm = 'Дневная форма обучения'">Дневная форма обучения</button>
+              <button class="dropdown-item" (click)="student.educationForm = 'Вечерняя форма обучения'">Вечерняя форма обучения</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-12">
+          <div ngbDropdown>
+            <button class="btn btn-outline-secondary btn-block" id="groupDropdown" ngbDropdownToggle>{{student.isBudget ? 'Боджет' : 'Контракт'}}</button>
+            <div ngbDropdownMenu aria-labelledby="groupDropdown">
+              <button class="dropdown-item" (click)="student.isBudget = true">Боджет</button>
+              <button class="dropdown-item" (click)="student.isBudget = false">Контракт</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ngb-alert *ngIf="alert" [type]="'warning'" (close)="closeAlert()">{{ alert }}</ngb-alert>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" [disabled]="newStudentForm.invalid || !student.institute || !student.group" (click)="submit()">Создать</button>
+  <button type="button" class="btn btn-light" (click)="activeModal.close()">Отмена</button>
+</div>

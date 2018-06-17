@@ -1,113 +1,59 @@
 <section class="main-section">
-    <div class="container">
-        <div class="row filters d-flex flex-lg-row">
-            <div class="col-md-2">
-                <select name="" id="" class="custom cafedra">
-                    <option disabled>Выберите кафедру</option>
-                    <option value="">Test</option>
-                    <option value="">Test</option>
-                </select>
-            </div>
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
 
-            <div class="col-md-2">
-                <select name="" id="" class="custom course">
-                    <option disabled>Выберите курс</option>
-                    <option value="">Test</option>
-                    <option value="">Test</option>
-                </select>
-            </div>
+        <div class="row">
 
-            <div class="col-md-5">
-                <div class="wrapper d-flex">
-                    <input type="text" class="file-way custom" disabled placeholder="Выберите файл">
-                    <input type="button" class="button import-button" value="Импортировать">
-                </div>
+          <div ngbDropdown class="col-md-2">
+            <button class="btn btn-outline-secondary btn-block" id="filterCourse" ngbDropdownToggle>Специальность</button>
+            <div ngbDropdownMenu aria-labelledby="filterCourse">
+              <button class="dropdown-item"  *ngFor="let speciality of specialities$ | async" (click)="selectSpeciality(institute)">{{institute.title}}</button>
             </div>
+          </div>
 
-            <div class="col-md-3">
-                <button class="button" style="width: 100%">Добавить студента</button>
+          <div ngbDropdown class="col-md-2">
+            <button class="btn btn-outline-secondary btn-block" id="filterGroup" ngbDropdownToggle>Курс</button>
+            <div ngbDropdownMenu aria-labelledby="filterGroup">
+              <button class="dropdown-item" *ngFor="let group of institute.groups" (click)="filterGroup=institute">{{group.title}}</button>
             </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Выберите файл">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">Импортировать</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <button type="button" class="btn btn-primary btn-block" (click)="add(content)">Добавить студента</button>
+          </div>
         </div>
-        <div class="row stub">
-            <div class="col-md-12">
-                <p class="stub-text">
-                    Тут будет отображаться список студентов
-                </p>
-            </div>
-        </div>
-        <div class="row list">
-            <div class="col-12 item-wrapper">
-                <div class="row">
-                    <div class="col-8 d-flex">
-                        <p class="name">
-                            Бурдыкина Татьяна Витальевна
-                        </p>
-                        <a href="#" class="edit-button">
-                            <img src="../../public/img/edit-button.png" alt="">
-                        </a>
-                    </div>
-                    <div class="col-4 d-flex align-items-baseline">
-                        <i class="fa fa-window-close" aria-hidden="true"></i>
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        <input type="button" class="but info" value="Подробнее">
-                        <input type="button" class="but delete" value="Удалить">
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 item-wrapper">
-                <div class="row">
-                    <div class="col-8 d-flex">
-                        <p class="name">
-                            Бурдыкина Татьяна Витальевна
-                        </p>
-                        <a href="#" class="edit-button">
-                            <img src="../../public/img/edit-button.png" alt="">
-                        </a>
-                    </div>
-                    <div class="col-4 d-flex">
-                        <i class="fa fa-window-close" aria-hidden="true"></i>
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        <input type="button" class="but info" value="Подробнее">
-                        <input type="button" class="but delete" value="Удалить">
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 item-wrapper">
-                <div class="row">
-                    <div class="col-8 d-flex">
-                        <p class="name">
-                            Бурдыкина Татьяна Витальевна
-                        </p>
-                        <a href="#" class="edit-button">
-                            <img src="../../public/img/edit-button.png" alt="">
-                        </a>
-                    </div>
-                    <div class="col-4 d-flex">
-                        <i class="fa fa-window-close" aria-hidden="true"></i>
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        <input type="button" class="but info" value="Подробнее">
-                        <input type="button" class="but delete" value="Удалить">
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 item-wrapper">
-                <div class="row">
-                    <div class="col-8 d-flex">
-                        <p class="name">
-                            Бурдыкина Татьяна Витальевна
-                        </p>
-                        <a href="#" class="edit-button">
-                            <img src="../../public/img/edit-button.png" alt="">
-                        </a>
-                    </div>
-                    <div class="col-4 d-flex">
-                        <i class="fa fa-window-close" aria-hidden="true"></i>
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        <input type="button" class="but info" value="Подробнее">
-                        <input type="button" class="but delete" value="Удалить">
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <div class="card mt-4">
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let student of students$ | async">
+              <td>{{student.name}}</td>
+              <td>{{student.email}}</td>
+              <td class="w-25">
+                <div class="float-right">
+                  <button type="button" class="btn btn-primary" (click)="moreInfo(student)">Подробнее</button>
+                  <button type="button" class="btn btn-danger ml-3" (click)="remove(student)">Удалить
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </section>

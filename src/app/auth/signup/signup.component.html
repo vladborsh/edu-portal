@@ -1,73 +1,32 @@
-<div class="main-wrapper">
-  <div class="substrate">
-    <div class="container">
-      <div class="row">
-        <div class="logo">
-          <img src="../../../assets/img/Logo.png" alt="">
-        </div>
-      </div>
-      <div class="row">
-        <div class="offset-lg-3 col-lg-6  offset-md-3 col-md-6  col-12 form-wrapper sign-in-form">
-          <form novalidate (keydown.enter)="$event.preventDefault()">
-            <div *ngIf="stage=='username'" class="input-wrapper">
-              <input (keyup.enter)="continueSignin()" type="text" class="input-type login" placeholder="Введите email">
-            </div>
-            <div *ngIf="stage=='password'" class="input-wrapper">
-              <input type="text" class="input-type password" placeholder="Введите пароль">
-            </div>
-            <div *ngIf="false" class="input-wrapper">
-              <input type="password" class="input-type password confirm-pass" placeholder="Повторите пароль">
-            </div>
-            <div *ngIf="false" class="input-wrapper">
-              <input type="password" class="input-type enter-code" placeholder="Введите код из сообщения">
-            </div>
-            <div *ngIf="stage=='password'" class="forgot_wrapper">
-              <a href="#" class="forgot_pass">
-                Забыли пароль?
-              </a>
-            </div>
-            <div *ngIf="stage=='username'" class="button-wrapper">
-              <button (click)="continueSignin()" class="next_item">Продолжить</button>
-            </div>
-            <div *ngIf="stage=='password'" class="button-wrapper">
-              <button (click)="continueSignin()" class="next_item">Войти</button>
-            </div>
-            <div *ngIf="false" class="button-wrapper">
-              <button (click)="signup()" class="registration_button">Зарегистрироваться</button>
-            </div>
-            <div class="or-wrapper">
-              <hr>
-            </div>
-            <div class="button-wrapper d-flex">
-              <div class="g-logo d-flex justify-content-center align-items-center">
-                <img src="../../../assets/img/g-logo.png" alt="">
-              </div>
-              <button class="g-enter">Войти через Google</button>
-            </div>
-            <div class="to-registrate-wrapper">
-              <a href="" class="to-registrate">
-                Еще нет аккаунта? Зарегистрироваться!
-              </a>
-            </div>
-
-            <div class="to-enter-wrapper">
-              <a href="" class="to-enter">
-                Уже зарегистрирован? Войти!
-              </a>
-            </div>
-          </form>
-        </div>
-      </div>
-      <footer>
-        <div class="row">
-          <div class="offset-lg-3 col-lg-6 offset-md-3 col-md-6 col-12">
-            <p class="footer-text">
-              Институт компьютерных систем, Одесский Национальный политехнический университет
-              <br> 2018г. Все права защищены
-            </p>
-          </div>
-        </div>
-      </footer>
-    </div>
+<form [formGroup]="signUnForm" (submit)="signup()">
+  <div class="input-wrapper">
+    <input 
+      (keyup.enter)="signin()" 
+      formControlName="email"
+      type="text" class="input-type login" placeholder="Введите email">
   </div>
+  <div class="input-wrapper">
+    <input   
+      (keyup.enter)="signin()"
+      formControlName="password"
+      type="password" class="input-type password" placeholder="Введите пароль">
+  </div>
+  <div class="input-wrapper">
+    <input type="password" class="input-type password confirm-pass" placeholder="Повторите пароль">
+  </div>
+  <div class="button-wrapper">
+    <button type="submit" [disabled]="signUnForm.invalid" class="next_item">Зарегистироваться</button>
+  </div>
+</form>
+
+
+<div class="or-wrapper">
+  <hr>
 </div>
+
+<div class="to-enter-wrapper">
+  <a href="" class="to-enter" routerLink="../signin">
+    Уже зарегистрирован? Войти!
+  </a>
+</div>
+ 

@@ -1,4 +1,4 @@
-<form [fromGroup]="signInForm" (submit)="signin()">
+<form [formGroup]="signInForm" (submit)="signin()">
   <div class="input-wrapper">
     <input 
       (keyup.enter)="signin()" 
@@ -15,4 +15,20 @@
     <button type="submit" [disabled]="signInForm.invalid" class="next_item">Войти</button>
   </div>
 </form>
+
+<div class="forgot_wrapper">
+  <a class="forgot_pass" routerLink="forgot-password">
+    Забыли пароль?
+  </a>
+</div>
+
+<div class="or-wrapper">
+  <hr>
+</div>
+
+<div class="to-registrate-wrapper">
+  <a class="to-registrate" routerLink="../signup">
+    Еще нет аккаунта? Зарегистрироваться!
+  </a>
+</div>
           

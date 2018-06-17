@@ -7,12 +7,14 @@ import { AdminPageModule } from './admin-page/admin-page.module';
 import { AppRoutingModule } from './app.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonsModule } from './commons/commons.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    HttpClientModule,
     NgbModule.forRoot(),
     CommonsModule.forRoot(),
     BrowserModule,

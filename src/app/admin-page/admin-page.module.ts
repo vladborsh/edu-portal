@@ -9,6 +9,9 @@ import { SubjectsComponent } from './subjects/subjects.component';
 import { HeaderComponent } from './header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeachersComponent } from './teachers/teachers.component';
+import { NewStudentComponent } from './modals/new-student/new-student.component';
+import { RemoveStudentComponent } from './modals/remove-student/remove-student.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -16,14 +19,24 @@ import { TeachersComponent } from './teachers/teachers.component';
     CommonModule,
     CommonsModule,
     AdminRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [ 
+    NewStudentComponent,
     HeaderComponent,
     StudentComponent, 
     AdminPageComponent, 
     SpecialitiesComponent, 
     SubjectsComponent, 
-    TeachersComponent
+    TeachersComponent, 
+    RemoveStudentComponent, 
+  ],
+  entryComponents: [
+    NewStudentComponent,
+    RemoveStudentComponent
+  ],
+  providers: [
   ],
   bootstrap: []
 })

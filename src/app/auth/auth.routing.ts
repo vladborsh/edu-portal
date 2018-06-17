@@ -4,6 +4,7 @@ import { ModuleWithProviders } from "@angular/compiler/src/core";
 import { SigninComponent } from "./signin/signin.component";
 import { SignupComponent } from "./signup/signup.component";
 import { AuthComponent } from "./auth/auth.component";
+import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 
 const routes: Routes = [
     { 
@@ -11,6 +12,7 @@ const routes: Routes = [
       children: [
         { path: "signin", component: SigninComponent },
         { path: "signup", component: SignupComponent },
+        { path: "forgot-password", component: ForgotPasswordComponent },
         { path: '', redirectTo: "signin", pathMatch: "full" }
       ]
     }

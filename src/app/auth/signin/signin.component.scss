@@ -65,18 +65,6 @@ form {
     top: 0;
     left: 63px;
   }
-  .forgot_wrapper {
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: right;
-    .forgot_pass,
-    .forgot_pass:hover,
-    .forgot_pass:visited {
-      font-size: 0.9em;
-      color: $light-grey;
-      text-decoration: none;
-    }
-  }
   .button-wrapper {
     .next_item,
     .registration_button {
@@ -89,59 +77,54 @@ form {
       margin-top: 10px;
     }
   }
+}
 
-  .or-wrapper {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    hr {
-      margin-top: 40px;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    hr::after {
-      background-color: #ffffff;
-      content: "или";
-      position: absolute;
-      color: $light-grey;
-      border: 10px white solid;
-      top: -23px;
-    }
+.or-wrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  hr {
+    margin-top: 40px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-
-  .button-wrapper {
-    .g-logo {
-      width: 65px;
-      height: 38px;
-      border: 1px solid #3f74e7;
-      background-color: #3f74e7;
-      border-radius: 6px 0 0 6px;
-    }
-    .g-enter {
-      height: 38px;
-      border: 1px solid $light-blue;
-      color: white;
-      background-color: $light-blue;
-      width: calc(100% - 65px);
-      border-radius: 0 6px 6px 0;
-    }
+  hr::after {
+    background-color: #ffffff;
+    content: "или";
+    position: absolute;
+    color: $light-grey;
+    border: 10px white solid;
+    top: -23px;
   }
+}
 
-  .to-registrate-wrapper,
-  .to-enter-wrapper {
-    width: 100%;
-    margin-top: 10px;
-    text-align: center;
-    .to-registrate,
-    .to-registrate:hover,
-    .to-registrate:visited,
-    .to-enter,
-    .to-enter:hover,
-    .to-enter:visited {
-      color: $light-grey;
-      text-decoration: none;
-      font-size: 0.9em;
-    }
+.to-registrate-wrapper,
+.to-enter-wrapper {
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+  .to-registrate,
+  .to-registrate:hover,
+  .to-registrate:visited,
+  .to-enter,
+  .to-enter:hover,
+  .to-enter:visited {
+    color: $light-grey;
+    text-decoration: none;
+    font-size: 0.9em;
+  }
+}
+
+.forgot_wrapper {
+  width: 100%;
+  margin-top: 15px;
+  text-align: center;
+  .forgot_pass,
+  .forgot_pass:hover,
+  .forgot_pass:visited {
+    font-size: 0.9em;
+    color: $light-grey;
+    text-decoration: none;
   }
 }

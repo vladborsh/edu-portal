@@ -1,7 +1,6 @@
-<header>
-
+<header class="border-bottom">
   <div class="container">
-    <div class="row">
+    <div class="row mt-3">
       <div class="col-5">
         <div class="wrapper">
           <p class="title">
@@ -12,25 +11,26 @@
           </p>
         </div>
       </div>
-      <div class="offset-md-2 col-md-4 offset-2 col-8 d-flex justify-content-center align-items-center">
-        <div class="icon-wrapper">
-          <div class="user-icon">
-            <img src="../../public/img/avatar.jpg" class="avatar" alt="">
+      <div class="col-5 offset-md-2 justify-content-center align-items-center">
+        <form class="form-inline">
+          <div class="col-9">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Введите что нибудь">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">Поиск</button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="signin-data d-flex">
-          <div class="person_name">
-            <p> Дженни Томпсон</p>
+          <div class="col-3">
+            <button class="btn btn-block btn-light" type="button" (click)="logout()">Выход</button>
           </div>
-          <div class="arrow-wrapper">
-            <a href="">
-              <i class="fa fa-user-o" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
+</header>
+
+<header class="border-bottom">
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">ИКС ОНПУ</a>
@@ -42,19 +42,25 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" routerLink="students">
-              <i class="fa fa-home" aria-hidden="true"></i> Студенты</a>
+              Студенты
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="teachers">
-              <i class="fa fa-user-o" aria-hidden="true"></i> Преподаватели</a>
+              Преподаватели</a>
           </li>
           <li class="nav-item " ngbDropdown>
             <a class="nav-link dropdown-toggle" href="javascipt:void(0)" id="dropdowEduProcess" ngbDropdownToggle>
-              <i class="fa fa-user-o" aria-hidden="true"></i> Учебный процесс</a>
+              Учебный процесс
+            </a>
             <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdowEduProcess">
               <a class="dropdown-item" routerLink="subjects">Предметы</a>
               <a class="dropdown-item" routerLink="specialities">Специальности</a>
             </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="teachers">
+              Корпусы и аудитории</a>
           </li>
         </ul>
       </div>
