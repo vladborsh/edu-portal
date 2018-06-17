@@ -6,15 +6,18 @@ import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AuthStoreService } from './services/auth-store.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
+    NgbModule.forRoot(),
     CommonModule,
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
   ],
   declarations: [SigninComponent, SignupComponent, AuthComponent, ForgotPasswordComponent],
-  providers: []
+  providers: [AuthStoreService]
 })
 export class AuthModule { }

@@ -1,9 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/ng2-file-input/ng2-file-input.scss";
+
+$font-size : 90%;
 
 body {
   margin: 0;
   background-color: #f0f0f0;
-  font-size: 90%;
+  font-size: $font-size;
+  color: #555555;
+}
+
+button, input, span.btn {
+  font-size: $font-size !important;
 }
 
 .box-shadow {

@@ -1,24 +1,37 @@
-<form [formGroup]="signUnForm" (submit)="signup()">
+<h4 class="mb-4">
+  <p class="text-center">Регистрация</p>
+</h4>
+<form [formGroup]="verifySignUnForm" *ngIf="!verified">
   <div class="input-wrapper">
     <input 
-      (keyup.enter)="signin()" 
       formControlName="email"
-      type="text" class="input-type login" placeholder="Введите email">
+      name="email" type="text" class="input-type login" placeholder="Введите email">
   </div>
   <div class="input-wrapper">
-    <input   
-      (keyup.enter)="signin()"
-      formControlName="password"
-      type="password" class="input-type password" placeholder="Введите пароль">
-  </div>
-  <div class="input-wrapper">
-    <input type="password" class="input-type password confirm-pass" placeholder="Повторите пароль">
+    <input
+      formControlName="verificationCode"
+      name="verificationCode" type="password" class="input-type password" placeholder="Введите код из письма">
   </div>
   <div class="button-wrapper">
-    <button type="submit" [disabled]="signUnForm.invalid" class="next_item">Зарегистироваться</button>
+    <button [disabled]="verifySignUnForm.invalid" (click)="verify()" class="next_item">Дальше</button>
   </div>
 </form>
 
+<form [formGroup]="setPasswordForm" *ngIf="verified">
+  <div class="input-wrapper">
+    <input 
+      formControlName="password"
+      name="password" type="password" class="input-type password" placeholder="Введите пароль">
+  </div>
+  <div class="input-wrapper">
+    <input
+      formControlName="approvePassword"
+      name="approvePassword" type="password" class="input-type password" placeholder="Подтвердите пароль">
+  </div>
+  <div class="button-wrapper">
+    <button [disabled]="setPasswordForm.invalid" (click)="setPassword()" class="next_item">Зарегистрировать</button>
+  </div>
+</form>
 
 <div class="or-wrapper">
   <hr>

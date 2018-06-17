@@ -11,9 +11,15 @@
 
           <router-outlet></router-outlet>
 
+          <div class="mt-4">
+            <ngb-alert *ngIf="alert" [type]="alert.type" (close)="closeAlert()">{{ alert.message }}</ngb-alert>
+          </div>
+
         </div>
       </div>
       <footer>
+        <div class="row">
+        </div>
         <div class="row">
           <div class="offset-lg-3 col-lg-6 offset-md-3 col-md-6 col-12">
             <p class="footer-text">

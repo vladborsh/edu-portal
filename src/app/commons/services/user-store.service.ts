@@ -11,35 +11,35 @@ import { ResponseModel } from '../../models/response.model';
 })
 export class UserStoreService {
 
-  private studentsSource = new BehaviorSubject<User[]>([]);
+  private source = new BehaviorSubject<User[]>([]);
   
   constructor(private backendService: BackendService) { }
 
-  updateStudents(){
+  update(){
     this.backendService.get('user')
-      .subscribe((data: User[]) => this.studentsSource.next(data));
+      .subscribe((data: User[]) => this.source.next(data));
   }
 
-  public addStudent(user: User): Observable<ResponseModel<User>> {
+  public add(user: User): Observable<ResponseModel<User>> {
     return this.backendService.post<User,ResponseModel<User>>(`user`, user)
       .pipe( 
-        tap( () => this.updateStudents() )
+        tap( () => this.update() )
       );
   }
 
-  public removeStudent(id: string) {
+  public remove(id: string) {
     this.backendService.delete(`user/${id}`)
       .subscribe( () => {
-        let sourceValue: any[] = this.studentsSource.getValue();
+        let sourceValue: any[] = this.source.getValue();
         sourceValue.forEach((item, index) => {
             if(item._id === id) { sourceValue.splice(index, 1); }
         });
-        this.studentsSource.next(sourceValue);
+        this.source.next(sourceValue);
       });
   }
 
-  public getStudents() {
-    return this.studentsSource.asObservable();
+  public getData() {
+    return this.source.asObservable();
   }
 
 }

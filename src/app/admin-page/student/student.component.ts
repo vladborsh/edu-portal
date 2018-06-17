@@ -6,6 +6,7 @@ import { NewStudentComponent } from '../modals/new-student/new-student.component
 import { RemoveStudentComponent } from '../modals/remove-student/remove-student.component';
 import { Institute } from '../../models/instutute.model';
 import { UserStoreService } from '../../commons/services/user-store.service';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-student',
@@ -24,8 +25,10 @@ export class StudentComponent implements OnInit {
 
   ngOnInit() {
     this.institute = {groups: []};
-    this.userStore.updateStudents();
-    this.students$ = this.userStore.getStudents();
+    this.userStore.update();
+    this.students$ = this.userStore.getData().pipe(
+      map( (users: User[]) => users.filter(item => item.role === 'Student') )
+    );
   }
 
   add() {

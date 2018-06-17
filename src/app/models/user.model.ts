@@ -1,5 +1,6 @@
 export interface User {
     _id?: string,
+    verificationCode?: string,
     email?: string,
     name?: string,
     birthdate?: string,

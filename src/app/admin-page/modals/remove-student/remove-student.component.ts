@@ -21,8 +21,8 @@ export class RemoveStudentComponent implements OnInit {
   }
 
   submit() {
+    this.userStore.remove(this.item._id);
     this.activeModal.close()
-    this.userStore.removeStudent(this.item._id);
   }
 
 }
