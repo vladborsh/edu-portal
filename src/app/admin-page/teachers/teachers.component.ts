@@ -10,6 +10,8 @@ import { filter, map } from 'rxjs/operators';
 import { Speciality } from '../../models/speciality.model';
 import { SpecialityStoreService } from '../../commons/services/speciality-store.service';
 import { InstituteStoreService } from '../../commons/services/institute-store.service';
+import { RemoveTeacherComponent } from '../modals/remove-teacher/remove-teacher.component';
+import { NewTeacherComponent } from '../modals/new-teacher/new-teacher.component';
 
 @Component({
   selector: 'app-teacher',
@@ -41,11 +43,11 @@ export class TeachersComponent implements OnInit {
   }
 
   add() {
-    const modalRef = this.modalService.open(NewStudentComponent);
+    const modalRef = this.modalService.open(NewTeacherComponent);
   }
 
   remove(item) {
-    const modalRef = this.modalService.open(RemoveStudentComponent);
+    const modalRef = this.modalService.open(RemoveTeacherComponent);
     modalRef.componentInstance.item = item;
   }
 

@@ -15,6 +15,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RemoveTeacherComponent } from './modals/remove-teacher/remove-teacher.component';
 import { RemoveSubjectComponent } from './modals/remove-subject/remove-subject.component';
 import { RemoveSpecialityComponent } from './modals/remove-speciality/remove-speciality.component';
+import { NewTeacherComponent } from './modals/new-teacher/new-teacher.component';
 
 @NgModule({
   imports: [
@@ -39,10 +40,15 @@ import { RemoveSpecialityComponent } from './modals/remove-speciality/remove-spe
     RemoveTeacherComponent,
     RemoveSubjectComponent,
     RemoveSpecialityComponent,
+    NewTeacherComponent,
   ],
   entryComponents: [
     NewStudentComponent,
-    RemoveStudentComponent
+    NewTeacherComponent,
+    RemoveStudentComponent,
+    RemoveTeacherComponent,
+    RemoveSubjectComponent,
+    RemoveSpecialityComponent,
   ],
   providers: [
   ],
