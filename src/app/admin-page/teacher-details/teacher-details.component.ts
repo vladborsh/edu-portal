@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscribable, Subscriber, Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../../models/user.model';
 import { switchMap, take } from 'rxjs/operators';
 import { UserStoreService } from '../../commons/services/user-store.service';

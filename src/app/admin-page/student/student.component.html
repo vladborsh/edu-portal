@@ -40,9 +40,20 @@
 
   <div class="card mt-4">
     <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <input [(ngModel)]="studentNameFilter" type="text" class="form-control" placeholder="Поиск студента...">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-body">
       <table class="table" *ngIf="(students$ | async).length > 0; else emptyStudents">
         <tbody>
-          <tr *ngFor="let student of students$ | async | filterStudents: {speciality: specialityFilter, course: courseFilter}">
+          <tr *ngFor="let student of students$ | async | filterStudents: { name: studentNameFilter, speciality: specialityFilter, course: courseFilter}">
             <td>{{student.name}} <i class="details-label">({{student.group}})</i></td>
             <td class="w-25">
               <div class="float-right">

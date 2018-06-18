@@ -66,7 +66,7 @@
     <ngb-alert *ngIf="alert" [type]="'warning'" (close)="closeAlert()">{{ alert }}</ngb-alert>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" [disabled]="newTeacherForm.invalid || !teacher.institute || !teacher.speciality" (click)="submit()">
+    <button type="button" class="btn btn-primary" [disabled]="newTeacherForm.invalid || !teacher.institute || !teacher.speciality || !teacher.scienceDegree" (click)="submit()">
       Создать преподавателя
     </button>
     <button type="button" class="btn btn-light" (click)="activeModal.close()">Отмена</button>

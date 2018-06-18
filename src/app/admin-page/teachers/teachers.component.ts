@@ -70,9 +70,15 @@ export class FilterTeachers implements PipeTransform {
     if (!items || !filter) {
       return items;
     }
-    return items.filter(item =>
-      (filter.speciality ? (item.speciality === filter.speciality) : true) &&
-      (filter.course ? (item.course === filter.course) : true)
+    return items.filter(item => 
+      (filter.name ? this.match(item.name,filter.name) : true) &&
+      (filter.speciality ? this.match(item.speciality, filter.speciality) : true) &&
+      (filter.institute ? this.match(item.institute,filter.institute) : true)  
     );
+  }
+
+  match( copmparedValue, value ) {
+    if (!copmparedValue) return false;
+    return copmparedValue.toLowerCase().indexOf(value.toLowerCase()) != -1
   }
 }

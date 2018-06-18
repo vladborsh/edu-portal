@@ -42,9 +42,21 @@
   
     <div class="card mt-4">
       <div class="card-body">
+  
+        <div class="row">
+          <div class="col-md-12">
+            <input [(ngModel)]="teacherNameFilter" type="text" class="form-control" placeholder="Поиск преподавателя...">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  
+    <div class="card mt-4">
+      <div class="card-body">
         <table class="table"*ngIf="(teachers$ | async).length > 0; else emptyTeachers">
           <tbody>
-            <tr *ngFor="let teacher of teachers$ | async | filterTeachers: {speciality: specialityFilter, institute: instituteFilter}">
+            <tr *ngFor="let teacher of teachers$ | async | filterTeachers: {name: teacherNameFilter, speciality: specialityFilter, institute: instituteFilter}">
               <td>{{teacher.name}} <i class="details-label">({{teacher.scienceDegree}}, "{{teacher.speciality}}")</i></td>
               <td class="w-25">
                 <div class="float-right">

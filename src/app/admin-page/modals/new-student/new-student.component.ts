@@ -57,6 +57,7 @@ export class NewStudentComponent implements OnInit {
     this.student.birthdate = this.convertDate(this.student.birthdate);
     this.student.admissionDate = this.convertDate(this.student.admissionDate);
     this.student.role = 'Student';
+    this.student.course = 'I курс';
     this.userStore.add(this.student)
       .subscribe((res) => {
         if (res.success) {
