@@ -1,13 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/ng2-file-input/ng2-file-input.scss";
-
-$font-size : 90%;
+@import "./styles/variables";
+@import "./styles/overrided";
 
 body {
   margin: 0;
   background-color: #f0f0f0;
   font-size: $font-size;
-  color: #555555;
+  color: $font-color-gray;
 }
 
 button, input, span.btn, a.dropdown-item {
@@ -36,4 +36,8 @@ button, input, span.btn, a.dropdown-item {
 
 table tr:first-child td {
   border-top: 0;
+}
+
+.details-label {
+  color: $font-color-gray-l;
 }

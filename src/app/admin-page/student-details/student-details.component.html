@@ -1,0 +1,86 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+
+      <div class="row">
+
+        <div class="col-md-4 d-flex justify-content-center p-4">
+          <i class="fa fa-user-circle-o" aria-hidden="true" style="font-size:15em"></i>
+        </div>
+        <div class="col-md-8 p-4" *ngIf="student$ | async">
+          <div class="mb-3">
+            <h4>{{ (student$ | async)?.name }}</h4>
+          </div>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>
+                  <label class="details-label">Email:</label>
+                </td>
+                <td>
+                  {{ (student$ | async)?.email }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="details-label">Дата рождения:</label> 
+                </td>
+                <td>
+                  {{ (student$ | async)?.birthdate | date }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="details-label">Адресс:</label> 
+                </td>
+                <td>
+                  {{ (student$ | async)?.address }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="details-label">Институт:</label> 
+                </td>
+                <td>
+                  {{ (student$ | async)?.institute }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="details-label">Группа:</label> 
+                </td>
+                <td>
+                  {{ (student$ | async)?.group }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="details-label">Дата зачисления:</label> 
+                </td>
+                <td>
+                  {{ (student$ | async)?.admissionDate | date }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="details-label">Форма обучения:</label> 
+                </td>
+                <td>
+                  {{ (student$ | async)?.educationForm }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="details-label">Боджет:</label> 
+                </td>
+                <td>
+                  {{ (student$ | async)?.isBudget ? 'Да' : 'Нет' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

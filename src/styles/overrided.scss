@@ -1,0 +1,13 @@
+@import "./variables";
+
+.btn-primary {
+  color: #fff;
+  background-color: $bg-primary-color;
+  border-color: $brdr-primary-color;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: $bg-danger-color;
+  border-color: $brdr-danger-color;
+}

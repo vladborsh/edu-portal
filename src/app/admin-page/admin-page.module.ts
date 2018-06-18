@@ -16,6 +16,8 @@ import { RemoveTeacherComponent } from './modals/remove-teacher/remove-teacher.c
 import { RemoveSubjectComponent } from './modals/remove-subject/remove-subject.component';
 import { RemoveSpecialityComponent } from './modals/remove-speciality/remove-speciality.component';
 import { NewTeacherComponent } from './modals/new-teacher/new-teacher.component';
+import { StudentDetailsComponent } from './student-details/student-details.component';
+import { TeacherDetailsComponent } from './teacher-details/teacher-details.component';
 
 @NgModule({
   imports: [
@@ -41,6 +43,8 @@ import { NewTeacherComponent } from './modals/new-teacher/new-teacher.component'
     RemoveSubjectComponent,
     RemoveSpecialityComponent,
     NewTeacherComponent,
+    StudentDetailsComponent,
+    TeacherDetailsComponent,
   ],
   entryComponents: [
     NewStudentComponent,

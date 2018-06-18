@@ -45,10 +45,10 @@
         <table class="table"*ngIf="(teachers$ | async).length > 0; else emptyTeachers">
           <tbody>
             <tr *ngFor="let teacher of teachers$ | async | filterTeachers: {speciality: specialityFilter, institute: instituteFilter}">
-              <td>{{teacher.name}}</td>
+              <td>{{teacher.name}} <i class="details-label">({{teacher.scienceDegree}}, "{{teacher.speciality}}")</i></td>
               <td class="w-25">
                 <div class="float-right">
-                  <button type="button" class="btn btn-primary" (click)="moreInfo(teacher)">Подробнее</button>
+                  <button type="button" class="btn btn-primary" [routerLink]="['../teacher-details', teacher._id]">Подробнее</button>
                   <button type="button" class="btn btn-danger ml-3" (click)="remove(teacher)">Удалить
                     <i class="far fa-trash-alt"></i>
                   </button>

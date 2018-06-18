@@ -1,0 +1,78 @@
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-body">
+  
+        <div class="row">
+  
+          <div class="col-md-4 d-flex justify-content-center p-4">
+            <i class="fa fa-user-circle" aria-hidden="true" style="font-size:15em"></i>
+          </div>
+          <div class="col-md-8 p-4" *ngIf="teacher$ | async">
+            <div class="mb-3">
+              <h4>{{ (teacher$ | async)?.name }}</h4>
+            </div>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    <label class="details-label">Email:</label>
+                  </td>
+                  <td>
+                    {{ (teacher$ | async)?.email }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="details-label">Дата рождения:</label> 
+                  </td>
+                  <td>
+                    {{ (teacher$ | async)?.birthdate | date }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="details-label">Адресс:</label> 
+                  </td>
+                  <td>
+                    {{ (teacher$ | async)?.address }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="details-label">Институт:</label> 
+                  </td>
+                  <td>
+                    {{ (teacher$ | async)?.institute }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="details-label">Специальность:</label> 
+                  </td>
+                  <td>
+                    {{ (teacher$ | async)?.speciality }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="details-label">Должность:</label> 
+                  </td>
+                  <td>
+                    {{ (teacher$ | async)?.position }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="details-label">Научная степень:</label> 
+                  </td>
+                  <td>
+                    {{ (teacher$ | async)?.scienceDegree }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

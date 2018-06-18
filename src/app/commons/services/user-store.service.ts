@@ -39,21 +39,16 @@ export class UserStoreService {
   }
 
   public getStudents(speciality?: string, course?: string) {
+    this.update()
     return this.source.asObservable().pipe(
-      map((users: User[]) => users
-        .filter((user: User) => {
-            let result = user.role === 'Student';
-            return result;
-          })
-      )
+      map( (users: User[]) => users.filter((user: User) => user.role === 'Student') )
     );
   }
 
   public getTeachers() {
+    this.update()
     return this.source.asObservable().pipe(
-      map((users: User[]) => users
-        .filter((user: User) => user.role === 'Teacher')
-      )
+      map( (users: User[]) => users.filter((user: User) => user.role === 'Teacher') )
     );
   }
 
