@@ -1,80 +1,65 @@
-<section class="main-section">
-    <div class="container">
-        <div class="row filters d-flex flex-lg-row">
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center">
+      <h5>Специальности</h5>
+    </div>
+  </div>
 
-            <div class="col-md-3">
-                <button class="button" style="width: 100%">Добавить специальность</button>
-            </div>
+  <div class="card mt-2">
+    <div class="card-body">
+
+      <div class="row">
+
+        <div ngbDropdown class="col-md-2">
+          <button class="btn btn-outline-secondary btn-block text-truncate" id="instituteFilter" ngbDropdownToggle>
+            {{instituteFilter || 'Институт'}}
+          </button>
+          <div ngbDropdownMenu aria-labelledby="instituteFilter">
+            <button class="dropdown-item" *ngFor="let institute of institutes$ | async" (click)="filterInstitute(institute.title)">{{institute.title}}</button>
+          </div>
         </div>
-        <div class="row stub">
-            <div class="col-md-12">
-                <p class="stub-text">
-                    Тут будет отображаться список специальностей
-                </p>
-            </div>
+
+        <div class="offset-md-7 col-md-3">
+          <button type="button" class="btn btn-primary btn-block" (click)="add()">Добавить специальность</button>
         </div>
-        <div class="row list">
-            <div class="col-12 item-wrapper">
-                <div class="row">
-                    <div class="col-8 d-flex">
-                        <p class="name">
-                            <b>Название специальности: </b>Компьютерные науки и информационные технологии
-                        </p>
-                        <a href="#" class="edit-button">
-                            <img src="../../public/img/edit-button.png" alt="">
-                        </a>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <i class="fa fa-window-close" aria-hidden="true"></i>
-                        <input type="button" class="but delete" value="Удалить">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-8">
-                        <p class="code">
-                            <b>Код специальности: 122</b>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-8">
-                        <p class="degree">
-                            <b>Тип подготовки:</b> Магистр
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 item-wrapper">
-                <div class="row">
-                    <div class="col-8 d-flex">
-                        <p class="name">
-                            <b>Название специальности: </b>Компьютерные науки и информационные технологии
-                        </p>
-                        <a href="#" class="edit-button">
-                            <img src="../../public/img/edit-button.png" alt="">
-                        </a>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <i class="fa fa-window-close" aria-hidden="true"></i>
-                        <input type="button" class="but delete" value="Удалить">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-8">
-                        <p class="code">
-                            <b>Код специальности: 122</b>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-8">
-                        <p class="degree">
-                            <b>Тип подготовки:</b> Магистр
-                        </p>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-md-12">
+          <input [(ngModel)]="specialityTitleFilter" type="text" class="form-control" placeholder="Поиск специальности...">
         </div>
+      </div>
 
     </div>
-</section>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <table class="table" *ngIf="(specialities$ | async)?.length > 0; else emptySubjects">
+        <tbody>
+          <tr *ngFor="let speciality of specialities$ | async | filterSpeciality: {title: specialityTitleFilter, institute: instituteFilter}">
+            <td>{{speciality.title}}
+              <i class="details-label" *ngIf="speciality.institute">({{speciality.institute}})</i>
+            </td>
+            <td class="w-25">
+              <div class="float-right">
+                <button type="button" class="btn btn-primary" [routerLink]="['../speciality-details', speciality._id]">Подробнее</button>
+                <button type="button" class="btn btn-danger ml-3" (click)="remove(speciality)">Удалить
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #emptySubjects>
+        <div class="m-2">Пока нет предметов</div>
+      </ng-template>
+    </div>
+  </div>
+</div>

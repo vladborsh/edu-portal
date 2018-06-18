@@ -1,10 +1,16 @@
 <div class="container mt-4">
-  <div class="card">
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center">
+      <h5>Предметы</h5>
+    </div>
+  </div>
+      
+  <div class="card mt-2">
     <div class="card-body">
 
       <div class="row">
 
-        <div ngbDropdown class="col-md-2">
+        <div ngbDropdown class="col-md-3">
           <button class="btn btn-outline-secondary btn-block text-truncate" id="specialityFilter" ngbDropdownToggle>
             {{specialityFilter || 'Специальность'}}
           </button>
@@ -13,27 +19,17 @@
           </div>
         </div>
 
-        <div ngbDropdown class="col-md-2">
-          <button class="btn btn-outline-secondary btn-block" id="courseFilter" ngbDropdownToggle>{{courseFilter || 'Курс' }}</button>
-          <div ngbDropdownMenu aria-labelledby="courseFilter">
-            <button class="dropdown-item" *ngFor="let course of courses" (click)="filterCourse(course)">{{course}}</button>
+        <div ngbDropdown class="col-md-3">
+          <button class="btn btn-outline-secondary btn-block text-truncate" id="groupFilter" ngbDropdownToggle>
+            {{groupFilter || 'Группа'}}
+          </button>
+          <div ngbDropdownMenu aria-labelledby="groupFilter">
+            <button class="dropdown-item" *ngFor="let group of groups$ | async" (click)="filterGroup(group.title)">{{group.title}}</button>
           </div>
         </div>
 
-        <div class="col-md-5">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Выберите файл" style="height: 33px;" readonly>
-            <label class="input-group-append">
-              <span class="btn btn-primary">
-                Импортировать&hellip;
-                <input type="file" style="display: none;">
-              </span>
-            </label>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <button type="button" class="btn btn-primary btn-block" (click)="add()">Добавить студента</button>
+        <div class="offset-md-3 col-md-3">
+          <button type="button" class="btn btn-primary btn-block" (click)="add()">Добавить предмет</button>
         </div>
       </div>
     </div>
@@ -41,16 +37,28 @@
 
   <div class="card mt-4">
     <div class="card-body">
-      <table class="table" *ngIf="(students$ | async).length > 0; else emptyStudents">
+
+      <div class="row">
+        <div class="col-md-12">
+          <input [(ngModel)]="subjectTitleFilter" type="text" class="form-control" placeholder="Поиск предмета...">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <table class="table" *ngIf="(subjects$ | async)?.length > 0; else emptySubjects">
         <tbody>
-          <tr *ngFor="let student of students$ | async | filterStudents: {speciality: specialityFilter, course: courseFilter}">
-            <td>{{student.name}}
-              <i class="details-label">({{student.group}})</i>
+          <tr *ngFor="let subject of subjects$ | async | filterSubjects: {name: subjectTitleFilter, speciality: specialityFilter, group: groupFilter}">
+            <td>{{subject.title}}
+              <i class="details-label">({{subject.speciality}})</i>
             </td>
             <td class="w-25">
               <div class="float-right">
-                <button type="button" class="btn btn-primary" [routerLink]="['../student-details', student._id]">Подробнее</button>
-                <button type="button" class="btn btn-danger ml-3" (click)="remove(student)">Удалить
+                <button type="button" class="btn btn-primary" [routerLink]="['../subject-details', subject._id]">Подробнее</button>
+                <button type="button" class="btn btn-danger ml-3" (click)="remove(subject)">Удалить
                   <i class="far fa-trash-alt"></i>
                 </button>
               </div>
@@ -58,8 +66,8 @@
           </tr>
         </tbody>
       </table>
-      <ng-template #emptyStudents>
-        <div class="m-2">Пока нет студентов</div>
+      <ng-template #emptySubjects>
+        <div class="m-2">Пока нет предметов</div>
       </ng-template>
     </div>
   </div>

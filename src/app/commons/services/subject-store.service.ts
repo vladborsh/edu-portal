@@ -4,32 +4,32 @@ import { User } from '../../models/user.model';
 import { BackendService } from '../../commons/backend.service';
 import { tap } from 'rxjs/operators';
 import { Institute } from '../../models/instutute.model';
-import { Speciality } from '../../models/speciality.model';
+import { Subject } from '../../models/subject.model';
 import { ResponseModel } from '../../models/response.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SpecialityStoreService {
+export class SubjectStoreService {
 
-  private source = new BehaviorSubject<Speciality[]>([]);
+  private source = new BehaviorSubject<Subject[]>([]);
   
   constructor(private backendService: BackendService) { }
 
   public update(){
-    this.backendService.get('speciality')
-      .subscribe((data: Speciality[]) => this.source.next(data));
+    this.backendService.get('subject')
+      .subscribe((data: Subject[]) => this.source.next(data));
   }
 
-  public add(item: Speciality): Observable<ResponseModel<Speciality>> {
-    return this.backendService.post<Speciality,ResponseModel<Speciality>>(`speciality`, item)
+  public add(item: Subject): Observable<ResponseModel<Subject>> {
+    return this.backendService.post<Subject,ResponseModel<Subject>>(`subject`, item)
       .pipe( 
         tap( () => this.update() )
       );
   }
 
   public remove(id: string) {
-    this.backendService.delete(`speciality/${id}`)
+    this.backendService.delete(`subject/${id}`)
       .subscribe( () => {
         let sourceValue: any[] = this.source.getValue();
         sourceValue.forEach((item, index) => {
@@ -39,9 +39,10 @@ export class SpecialityStoreService {
       });
   }
 
-  public getData() {
+  public getData(): Observable<Subject[]> {
     this.update();
     return this.source.asObservable();
   }
 
 }
+

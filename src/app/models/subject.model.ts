@@ -1,7 +1,8 @@
-export interface Speciality {
+export interface Subject {
     _id?: string,
     title?: string,
     description?: string,
-    institute?: string,
+    speciality?: string,
+    group?: string,
     createdDate?: string,
 }

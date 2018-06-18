@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h4 class="modal-title">Добавление предмета</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="newSubjectForm" novalidate>
+    <div class="form-group">
+      <input [(ngModel)]="subject.title" formControlName="title" type="text" name="name" class="form-control" placeholder="Название предмета">
+    </div>
+    <div class="form-group">
+      <input [(ngModel)]="subject.description" formControlName="description" type="text" name="description" class="form-control"
+        placeholder="Описание">
+    </div>
+    <div class="form-group">
+      <div ngbDropdown>
+        <button class="btn btn-outline-secondary btn-block" id="specialityDropdown" ngbDropdownToggle>{{subject.speciality || 'Специальность'}}</button>
+        <div ngbDropdownMenu aria-labelledby="specialityDropdown">
+          <button class="dropdown-item" *ngFor="let speciality of specialites$ | async" (click)="selectSpeciality(speciality.title)">{{speciality.title}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div ngbDropdown>
+        <button class="btn btn-outline-secondary btn-block" id="groupDropdown" ngbDropdownToggle>{{subject.group || 'Группа'}}</button>
+        <div ngbDropdownMenu aria-labelledby="groupDropdown">
+          <button class="dropdown-item" *ngFor="let group of groups$ | async" (click)="selectGroup(group.title)">{{group.title}}</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ngb-alert *ngIf="alert" [type]="'warning'" (close)="closeAlert()">{{ alert }}</ngb-alert>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" [disabled]="newSubjectForm.invalid || !subject.group || !subject.speciality"
+    (click)="submit()">
+    Создать предмет
+  </button>
+  <button type="button" class="btn btn-light" (click)="activeModal.close()">Отмена</button>
+</div>

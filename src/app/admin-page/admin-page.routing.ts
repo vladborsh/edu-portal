@@ -8,6 +8,8 @@ import { SubjectsComponent } from './subjects/subjects.component';
 import { TeachersComponent } from './teachers/teachers.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { TeacherDetailsComponent } from './teacher-details/teacher-details.component';
+import { SubjectDetailsComponent } from './subject-details/subject-details.component';
+import { SpecialityDetailsComponent } from './speciality-details/speciality-details.component';
 
 const routes: Routes = [
   { 
@@ -17,7 +19,9 @@ const routes: Routes = [
       { path: 'students', component: StudentComponent },
       { path: 'student-details/:id', component: StudentDetailsComponent },
       { path: 'specialities', component: SpecialitiesComponent },
+      { path: 'speciality-details/:id', component: SpecialityDetailsComponent },
       { path: 'subjects', component: SubjectsComponent },
+      { path: 'subject-details/:id', component: SubjectDetailsComponent },
       { path: 'teachers', component: TeachersComponent },
       { path: 'teacher-details/:id', component: TeacherDetailsComponent },
     ] 

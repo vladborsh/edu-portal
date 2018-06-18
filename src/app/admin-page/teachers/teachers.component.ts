@@ -37,9 +37,6 @@ export class TeachersComponent implements OnInit {
     this.teachers$ = this.userStore.getTeachers();
     this.specialities$ = this.specialityStore.getData();
     this.institutes$ = this.instituteStore.getData();
-    this.userStore.update();
-    this.specialityStore.update();
-    this.instituteStore.update();
   }
 
   add() {

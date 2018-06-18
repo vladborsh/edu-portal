@@ -1,0 +1,46 @@
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-body">
+  
+        <div class="row">
+  
+          <div class="col-md-4 d-flex justify-content-center p-4">
+            <i class="fa fa-book" aria-hidden="true" style="font-size:15em"></i>
+          </div>
+          <div class="col-md-8 p-4" *ngIf="speciality$ | async">
+            <div class="mb-3">
+              <h4>{{ (speciality$ | async)?.title }}</h4>
+            </div>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    <label class="details-label">Описание:</label>
+                  </td>
+                  <td>
+                    {{ (speciality$ | async)?.description }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="details-label">Институт:</label>
+                  </td>
+                  <td>
+                    {{ (speciality$ | async)?.institute }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="details-label">Дата создания:</label>
+                  </td>
+                  <td>
+                    {{ (speciality$ | async)?.createdDate | date }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

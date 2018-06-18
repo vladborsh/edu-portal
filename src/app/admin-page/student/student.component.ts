@@ -32,8 +32,6 @@ export class StudentComponent implements OnInit {
   ngOnInit() {
     this.students$ = this.userStore.getStudents();
     this.specialities$ = this.specialityStore.getData();
-    this.userStore.update();
-    this.specialityStore.update();
     this.courses = ['I курс', 'II курс', 'III курс', 'IV курс', 'V курс', 'IVI курс',]
   }
 
@@ -65,7 +63,6 @@ export class FilterStudents implements PipeTransform {
     if (!items || !filter) {
       return items;
     }
-    console.log(filter)
     return items.filter(item => 
       (filter.name ? this.match(item.name,filter.name) : true) &&
       (filter.speciality ? this.match(item.speciality, filter.speciality) : true) &&

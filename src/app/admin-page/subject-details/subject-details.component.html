@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+
+      <div class="row">
+
+        <div class="col-md-4 d-flex justify-content-center p-4">
+          <i class="fa fa-graduation-cap" aria-hidden="true" style="font-size:15em"></i>
+        </div>
+        <div class="col-md-8 p-4" *ngIf="subject$ | async">
+          <div class="mb-3">
+            <h4>{{ (subject$ | async)?.title }}</h4>
+          </div>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>
+                  <label class="details-label">Описание:</label>
+                </td>
+                <td>
+                  {{ (subject$ | async)?.description }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="details-label">Специальность:</label>
+                </td>
+                <td>
+                  {{ (subject$ | async)?.speciality }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="details-label">Группа:</label>
+                </td>
+                <td>
+                  {{ (subject$ | async)?.group }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="details-label">Дата создания:</label>
+                </td>
+                <td>
+                  {{ (subject$ | async)?.createdDate | date }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

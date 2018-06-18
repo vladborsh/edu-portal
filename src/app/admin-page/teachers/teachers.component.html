@@ -1,77 +1,74 @@
 <div class="container mt-4">
-    <div class="card">
-      <div class="card-body">
-  
-        <div class="row">
-  
-          <div ngbDropdown class="col-md-2">
-            <button class="btn btn-outline-secondary btn-block text-truncate" id="instituteFilter" ngbDropdownToggle>
-              {{instituteFilter || 'Институт'}}
-            </button>
-            <div ngbDropdownMenu aria-labelledby="instituteFilter">
-              <button class="dropdown-item"  *ngFor="let institute of institutes$ | async" (click)="filterInstitute(institute.title)">{{institute.title}}</button>
-            </div>
-          </div>
-  
-          <div ngbDropdown class="col-md-2">
-            <button class="btn btn-outline-secondary btn-block text-truncate" id="specialityFilter" ngbDropdownToggle>
-              {{specialityFilter || 'Специальность'}}
-            </button>
-            <div ngbDropdownMenu aria-labelledby="specialityFilter">
-              <button class="dropdown-item"  *ngFor="let speciality of specialities$ | async" (click)="filterSpeciality(speciality.title)">{{speciality.title}}</button>
-            </div>
-          </div>
-
-          <div class="col-md-5">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Выберите файл" style="height: 33px;" readonly>
-              <label class="input-group-append">
-                <span class="btn btn-primary">
-                  Импортировать&hellip; <input type="file" style="display: none;">
-                </span>
-              </label>
-            </div>
-          </div>
-  
-          <div class="col-md-3">
-            <button type="button" class="btn btn-primary btn-block" (click)="add(content)">Добавить преподавателя</button>
-          </div>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center">
+      <h5>Преподаватели</h5>
     </div>
-  
-    <div class="card mt-4">
-      <div class="card-body">
-  
-        <div class="row">
-          <div class="col-md-12">
-            <input [(ngModel)]="teacherNameFilter" type="text" class="form-control" placeholder="Поиск преподавателя...">
+  </div>
+
+  <div class="card mt-2">
+    <div class="card-body">
+
+      <div class="row">
+
+        <div ngbDropdown class="col-md-3">
+          <button class="btn btn-outline-secondary btn-block text-truncate" id="instituteFilter" ngbDropdownToggle>
+            {{instituteFilter || 'Институт'}}
+          </button>
+          <div ngbDropdownMenu aria-labelledby="instituteFilter">
+            <button class="dropdown-item" *ngFor="let institute of institutes$ | async" (click)="filterInstitute(institute.title)">{{institute.title}}</button>
           </div>
         </div>
 
-      </div>
-    </div>
-  
-    <div class="card mt-4">
-      <div class="card-body">
-        <table class="table"*ngIf="(teachers$ | async).length > 0; else emptyTeachers">
-          <tbody>
-            <tr *ngFor="let teacher of teachers$ | async | filterTeachers: {name: teacherNameFilter, speciality: specialityFilter, institute: instituteFilter}">
-              <td>{{teacher.name}} <i class="details-label">({{teacher.scienceDegree}}, "{{teacher.speciality}}")</i></td>
-              <td class="w-25">
-                <div class="float-right">
-                  <button type="button" class="btn btn-primary" [routerLink]="['../teacher-details', teacher._id]">Подробнее</button>
-                  <button type="button" class="btn btn-danger ml-3" (click)="remove(teacher)">Удалить
-                    <i class="far fa-trash-alt"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <ng-template  #emptyTeachers>
-          <div class="m-2">Пока нет преподавателей</div>
-        </ng-template >
+        <div ngbDropdown class="col-md-3">
+          <button class="btn btn-outline-secondary btn-block text-truncate" id="specialityFilter" ngbDropdownToggle>
+            {{specialityFilter || 'Специальность'}}
+          </button>
+          <div ngbDropdownMenu aria-labelledby="specialityFilter">
+            <button class="dropdown-item" *ngFor="let speciality of specialities$ | async" (click)="filterSpeciality(speciality.title)">{{speciality.title}}</button>
+          </div>
+        </div>
+
+        <div class="offset-md-3 col-md-3">
+          <button type="button" class="btn btn-primary btn-block" (click)="add(content)">Добавить преподавателя</button>
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="card mt-4">
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-md-12">
+          <input [(ngModel)]="teacherNameFilter" type="text" class="form-control" placeholder="Поиск преподавателя...">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <table class="table" *ngIf="(teachers$ | async)?.length > 0; else emptyTeachers">
+        <tbody>
+          <tr *ngFor="let teacher of teachers$ | async | filterTeachers: {name: teacherNameFilter, speciality: specialityFilter, institute: instituteFilter}">
+            <td>{{teacher.name}}
+              <i class="details-label">({{teacher.scienceDegree}}, "{{teacher.speciality}}")</i>
+            </td>
+            <td class="w-25">
+              <div class="float-right">
+                <button type="button" class="btn btn-primary" [routerLink]="['../teacher-details', teacher._id]">Подробнее</button>
+                <button type="button" class="btn btn-danger ml-3" (click)="remove(teacher)">Удалить
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #emptyTeachers>
+        <div class="m-2">Пока нет преподавателей</div>
+      </ng-template>
+    </div>
+  </div>
+</div>
