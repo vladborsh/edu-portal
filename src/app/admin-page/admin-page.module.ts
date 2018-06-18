@@ -22,6 +22,11 @@ import { NewSubjectComponent } from './modals/new-subject/new-subject.component'
 import { SubjectDetailsComponent } from './subject-details/subject-details.component';
 import { SpecialityDetailsComponent } from './speciality-details/speciality-details.component';
 import { NewSpecialityComponent } from './modals/new-speciality/new-speciality.component';
+import { ImportUsersComponent } from './modals/import-users/import-users.component';
+import { GroupsComponent, FilterGroups } from './groups/groups.component';
+import { GroupDetailsComponent } from './group-details/group-details.component';
+import { NewGroupComponent } from './modals/new-group/new-group.component';
+import { RemoveGroupComponent } from './modals/remove-group/remove-group.component';
 
 @NgModule({
   imports: [
@@ -45,6 +50,7 @@ import { NewSpecialityComponent } from './modals/new-speciality/new-speciality.c
     FilterTeachers,
     FilterSubjects,
     FilterSpeciality,
+    FilterGroups,
     RemoveTeacherComponent,
     RemoveSubjectComponent,
     RemoveSpecialityComponent,
@@ -55,16 +61,24 @@ import { NewSpecialityComponent } from './modals/new-speciality/new-speciality.c
     SubjectDetailsComponent,
     SpecialityDetailsComponent,
     NewSpecialityComponent,
+    ImportUsersComponent,
+    GroupsComponent,
+    GroupDetailsComponent,
+    NewGroupComponent,
+    RemoveGroupComponent,
   ],
   entryComponents: [
     NewStudentComponent,
     NewTeacherComponent,
     NewSubjectComponent,
     NewSpecialityComponent,
+    NewGroupComponent,
     RemoveStudentComponent,
     RemoveTeacherComponent,
     RemoveSubjectComponent,
     RemoveSpecialityComponent,
+    RemoveGroupComponent,
+    ImportUsersComponent,
   ],
   providers: [
   ],

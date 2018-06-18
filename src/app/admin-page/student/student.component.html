@@ -28,12 +28,12 @@
 
         <div class="col-md-5">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Импорт студентов из .CSV" style="height: 33px;" readonly>
+            <input [(ngModel)]="importStudentsFileName" type="text" class="form-control" placeholder="Импорт студентов из .CSV" style="height: 33px;" (click)="dispatch()">
+            <input #csvFileInput type="file" (change)="handleStudentCsv($event)" accept=".csv" style="display: none;">
             <label class="input-group-append mb-0">
-              <span class="btn btn-primary">
+              <button class="btn btn-primary" (click)="importStudents()" [disabled]="!importedStudents">
                 Импортировать&hellip;
-                <input type="file" style="display: none;">
-              </span>
+              </button>
             </label>
           </div>
         </div>
@@ -62,7 +62,7 @@
         <tbody>
           <tr *ngFor="let student of students$ | async | filterStudents: { name: studentNameFilter, speciality: specialityFilter, course: courseFilter}">
             <td>{{student.name}}
-              <i class="details-label">({{student.group}})</i>
+              <i class="details-label" *ngIf="student.group">({{student.group}})</i>
             </td>
             <td class="w-25">
               <div class="float-right">

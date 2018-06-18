@@ -26,6 +26,13 @@ export class InstituteStoreService {
       );
   }
 
+  public updateItem(item: Institute): Observable<Institute> {
+    return this.backendService.post(`institute/${item._id}`, item)
+      .pipe( 
+        tap( () => this.update() )
+      );
+  }
+
   public remove(id: string) {
     this.backendService.delete(`institute/${id}`)
       .subscribe( () => {

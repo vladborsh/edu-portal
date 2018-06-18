@@ -4,8 +4,8 @@ import { Speciality } from "./speciality.model";
 export interface Group {
     title? : string,
     users?: User[],
-    status?: string,
-    speciality?: Speciality
+    speciality?: string,
+    institute?: string,
     createdDate?: string,
 
 }
