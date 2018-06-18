@@ -5,6 +5,8 @@ import { User } from '../../models/user.model';
 import { tap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthModel } from '../../models/auth.model';
+import { AuthStoreService } from '../services/auth-store.service';
+import { UserInfoService } from '../../commons/services/user-info.service';
 
 @Component({
   selector: 'app-signin',
@@ -18,8 +20,10 @@ export class SigninComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private backend: BackendService) { 
-    }
+    private backend: BackendService,
+    private authStore: AuthStoreService,
+    private userInfo: UserInfoService
+  ) { }
 
   ngOnInit() {
     this.signInForm = this.fb.group({
@@ -38,15 +42,26 @@ export class SigninComponent implements OnInit {
         password : this.signInForm.controls.password.value,
       })
       .subscribe(
-        data => this.processUthorization(data),
+        data => this.processAuthorization(data),
         error => console.error(error)
       );
   }
 
-  processUthorization(data) {
-    console.log(data);
-    localStorage.setItem('token', data.token);
-    this.router.navigate(['../../admin']);
+  processAuthorization(data: AuthModel) : void {
+    if (data.success) {
+      localStorage.setItem('token', data.token);
+      this.userInfo.getData(data.id)
+        .subscribe(
+          (user: User) => {
+            if (user.role === 'Admin') this.router.navigate(['../../admin']);
+            else this.router.navigate(['../../user']);
+          }
+        )
+    } else {
+      this.authStore.setData({
+        alert: { message: data.message, type: 'warning' }
+      })
+    }
   }
 
 }

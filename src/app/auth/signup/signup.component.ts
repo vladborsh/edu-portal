@@ -16,7 +16,9 @@ export class SignupComponent implements OnInit {
 
   public verifySignUnForm: FormGroup;
   public setPasswordForm: FormGroup;
-  public verified: boolean
+  public verified: boolean;
+  public email: string;
+  public verificationCode: string;
 
   constructor(
     private fb: FormBuilder,
@@ -38,13 +40,22 @@ export class SignupComponent implements OnInit {
   }
 
   public verify() {
+    this.authStore.setData({alert: null})
     this.backend.post<User,ResponseModel<User>>('user/verify', 
-      {
-        email : this.verifySignUnForm.controls.email.value,
-        verificationCode : this.verifySignUnForm.controls.verificationCode.value,
-      })
-      .subscribe(
-        data => this.verified = true,
+    {
+      email : this.verifySignUnForm.controls.email.value,
+      verificationCode : this.verifySignUnForm.controls.verificationCode.value,
+    })
+    .subscribe(
+      data => {
+        if (data.success) {
+            this.verified = true
+          } else {
+            this.authStore.setData({
+              alert: { message: data.message, type: 'warning' }
+            })
+          }
+        },
         error => console.error(error)
       );
   }
@@ -55,14 +66,21 @@ export class SignupComponent implements OnInit {
       this.backend.post<User,ResponseModel<User>>('user/setpass', 
         {
           password : this.setPasswordForm.controls.password.value,
-          verificationCode : this.setPasswordForm.controls.approvePassword.value,
+          verificationCode : this.verificationCode,
+          email: this.email
         })
         .subscribe(
           data => {
-            this.router.navigate(['auth/signin']);
-            this.authStore.setData({
-              alert: { message: 'Вы активировали пользователя! Можете войти', type: 'info' }
-            })
+            if (data.success) {
+              this.router.navigate(['auth/signin']);
+              this.authStore.setData({
+                alert: { message: 'Вы активировали пользователя! Можете войти', type: 'info' }
+              })
+            } else {
+              this.authStore.setData({
+                alert: { message: data.message, type: 'warning' }
+              })
+            }
           },
           error => console.error(error)
         );

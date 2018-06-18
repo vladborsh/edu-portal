@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../../models/user.model';
 import { BackendService } from '../../commons/backend.service';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { Institute } from '../../models/instutute.model';
 import { ResponseModel } from '../../models/response.model';
 
@@ -38,8 +38,23 @@ export class UserStoreService {
       });
   }
 
-  public getData() {
-    return this.source.asObservable();
+  public getStudents(speciality?: string, course?: string) {
+    return this.source.asObservable().pipe(
+      map((users: User[]) => users
+        .filter((user: User) => {
+            let result = user.role === 'Student';
+            return result;
+          })
+      )
+    );
+  }
+
+  public getTeachers() {
+    return this.source.asObservable().pipe(
+      map((users: User[]) => users
+        .filter((user: User) => user.role === 'Teacher')
+      )
+    );
   }
 
 }

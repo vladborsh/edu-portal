@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Pipe, PipeTransform } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user.model';
@@ -7,6 +7,8 @@ import { RemoveStudentComponent } from '../modals/remove-student/remove-student.
 import { Institute } from '../../models/instutute.model';
 import { UserStoreService } from '../../commons/services/user-store.service';
 import { filter, map } from 'rxjs/operators';
+import { Speciality } from '../../models/speciality.model';
+import { SpecialityStoreService } from '../../commons/services/speciality-store.service';
 
 @Component({
   selector: 'app-student',
@@ -15,20 +17,24 @@ import { filter, map } from 'rxjs/operators';
 })
 export class StudentComponent implements OnInit {
 
-  public students$ : Observable<User[]>;
-  public institute: Institute;
+  public students$: Observable<User[]>;
+  public specialities$: Observable<Speciality[]>;
+  public specialityFilter: string;
+  public courseFilter: string;
+  public courses: string[];
 
   constructor(
     private modalService: NgbModal,
     private userStore: UserStoreService,
+    private specialityStore: SpecialityStoreService,
   ) { }
 
   ngOnInit() {
-    this.institute = {groups: []};
+    this.students$ = this.userStore.getStudents();
+    this.specialities$ = this.specialityStore.getData();
     this.userStore.update();
-    this.students$ = this.userStore.getData().pipe(
-      map( (users: User[]) => users.filter(item => item.role === 'Student') )
-    );
+    this.specialityStore.update();
+    this.courses = ['I курс', 'II курс', 'III курс', 'IV курс', 'V курс', 'IVI курс',]
   }
 
   add() {
@@ -40,4 +46,28 @@ export class StudentComponent implements OnInit {
     modalRef.componentInstance.item = item;
   }
 
+  filterSpeciality( speciality: string) {
+    this.specialityFilter = speciality;
+  }
+
+  filterCourse( course: string) {
+    this.courseFilter = course;
+  }
+
+}
+
+@Pipe({
+  name: 'filterStudents',
+  pure: false
+})
+export class FilterStudents implements PipeTransform {
+  transform(items: User[], filter: User): any {
+    if (!items || !filter) {
+      return items;
+    }
+    return items.filter(item =>
+      (filter.speciality ? (item.speciality === filter.speciality) : true) &&
+      (filter.institute ? (item.institute === filter.institute) : true)
+    );
+  }
 }

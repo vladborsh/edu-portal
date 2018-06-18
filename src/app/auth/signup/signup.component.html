@@ -5,11 +5,13 @@
   <div class="input-wrapper">
     <input 
       formControlName="email"
+      [(ngModel)]="email"
       name="email" type="text" class="input-type login" placeholder="Введите email">
   </div>
   <div class="input-wrapper">
     <input
       formControlName="verificationCode"
+      [(ngModel)]="verificationCode"
       name="verificationCode" type="password" class="input-type password" placeholder="Введите код из письма">
   </div>
   <div class="button-wrapper">

@@ -5,16 +5,18 @@
       <div class="row">
 
         <div ngbDropdown class="col-md-2">
-          <button class="btn btn-outline-secondary btn-block" id="filterCourse" ngbDropdownToggle>Специальность</button>
-          <div ngbDropdownMenu aria-labelledby="filterCourse">
-            <button class="dropdown-item"  *ngFor="let speciality of specialities$ | async" (click)="selectSpeciality(institute)">{{institute.title}}</button>
+          <button class="btn btn-outline-secondary btn-block text-truncate" id="specialityFilter" ngbDropdownToggle>
+            {{specialityFilter || 'Специальность'}}
+          </button>
+          <div ngbDropdownMenu aria-labelledby="specialityFilter">
+            <button class="dropdown-item"  *ngFor="let speciality of specialities$ | async" (click)="filterSpeciality(speciality.title)">{{speciality.title}}</button>
           </div>
         </div>
 
         <div ngbDropdown class="col-md-2">
-          <button class="btn btn-outline-secondary btn-block" id="filterGroup" ngbDropdownToggle>Курс</button>
-          <div ngbDropdownMenu aria-labelledby="filterGroup">
-            <button class="dropdown-item" *ngFor="let group of institute.groups" (click)="filterGroup=institute">{{group.title}}</button>
+          <button class="btn btn-outline-secondary btn-block" id="courseFilter" ngbDropdownToggle>{{courseFilter || 'Курс' }}</button>
+          <div ngbDropdownMenu aria-labelledby="courseFilter">
+            <button class="dropdown-item" *ngFor="let course of courses" (click)="filterCourse(course)">{{course}}</button>
           </div>
         </div>
 
@@ -30,7 +32,7 @@
         </div>
 
         <div class="col-md-3">
-          <button type="button" class="btn btn-primary btn-block" (click)="add(content)">Добавить студента</button>
+          <button type="button" class="btn btn-primary btn-block" (click)="add()">Добавить студента</button>
         </div>
       </div>
     </div>
@@ -38,11 +40,10 @@
 
   <div class="card mt-4">
     <div class="card-body">
-      <table class="table">
+      <table class="table" *ngIf="(students$ | async).length > 0; else emptyStudents">
         <tbody>
-          <tr *ngFor="let student of students$ | async">
+          <tr *ngFor="let student of students$ | async | filterStudents: {speciality: specialityFilter, course: courseFilter}">
             <td>{{student.name}}</td>
-            <td>{{student.email}}</td>
             <td class="w-25">
               <div class="float-right">
                 <button type="button" class="btn btn-primary" (click)="moreInfo(student)">Подробнее</button>
@@ -54,6 +55,9 @@
           </tr>
         </tbody>
       </table>
+      <ng-template  #emptyStudents>
+          <div class="m-2">Пока нет студентов</div>
+      </ng-template >
     </div>
   </div>
 </div>
