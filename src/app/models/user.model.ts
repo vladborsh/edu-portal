@@ -10,6 +10,7 @@ export interface User {
     institute?: string,
     speciality?: string,
     group?: string,
+    _group?: string,
     password?: string,
     educationForm?: string,
     isBudget?: boolean,

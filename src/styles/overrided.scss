@@ -12,6 +12,18 @@
   border-color: $brdr-danger-color;
 }
 
+.btn-light {
+  background-color: $bg-light-color;
+}
+
 td label {
   margin-bottom: 0;
+}
+
+.card {
+  .card-header {
+    background: #fff;
+    border: none;
+    padding: 2em 2em 0 2em;
+  }
 }

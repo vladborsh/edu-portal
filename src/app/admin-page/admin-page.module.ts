@@ -27,6 +27,7 @@ import { GroupsComponent, FilterGroups } from './groups/groups.component';
 import { GroupDetailsComponent } from './group-details/group-details.component';
 import { NewGroupComponent } from './modals/new-group/new-group.component';
 import { RemoveGroupComponent } from './modals/remove-group/remove-group.component';
+import { LetDirective } from '../commons/directives/let.directive';
 
 @NgModule({
   imports: [

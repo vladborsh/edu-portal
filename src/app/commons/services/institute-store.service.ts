@@ -4,6 +4,7 @@ import { User } from '../../models/user.model';
 import { BackendService } from '../../commons/backend.service';
 import { tap } from 'rxjs/operators';
 import { Institute } from '../../models/instutute.model';
+import { ResponseModel } from '../../models/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,8 @@ export class InstituteStoreService {
       );
   }
 
-  public updateItem(item: Institute): Observable<Institute> {
-    return this.backendService.post(`institute/${item._id}`, item)
+  public updateItem(item: Institute): Observable<ResponseModel<Institute>> {
+    return this.backendService.post<Institute,ResponseModel<Institute>>(`institute/${item._id}`, item)
       .pipe( 
         tap( () => this.update() )
       );

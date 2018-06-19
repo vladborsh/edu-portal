@@ -21,6 +21,9 @@
         </div>
       </div>
     </div>
+    <div class="form-group">
+      <input [(ngModel)]="speciality.groupNaming" formControlName="groupNaming" type="text" name="groupNaming" class="form-control" placeholder="Префикс для групп">
+    </div>
   </form>
   <ngb-alert *ngIf="alert" [type]="'warning'" (close)="closeAlert()">{{ alert }}</ngb-alert>
 </div>

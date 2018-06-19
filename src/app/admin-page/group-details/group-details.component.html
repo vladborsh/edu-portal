@@ -1,3 +1,144 @@
-<p>
-  group-details works!
-</p>
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+
+      <div class="row">
+
+        <div class="col-md-4 d-flex justify-content-center p-4">
+          <i class="fa fa-users" aria-hidden="true" style="font-size:14em"></i>
+        </div>
+        <div class="col-md-8 p-4" *ngIf="group$ | async">
+          <div class="mb-3">
+            <h4>{{ (group$ | async)?.title }}</h4>
+          </div>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>
+                  <label class="details-label">Институт:</label>
+                </td>
+                <td>
+                  {{ (group$ | async)?.institute }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="details-label">Специальность:</label>
+                </td>
+                <td>
+                  {{ (group$ | async)?.speciality }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="details-label">Дата создания:</label>
+                </td>
+                <td>
+                  {{ (group$ | async)?.createdDate | date }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mt-4">
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-6">
+              <h5>Студенты</h5>
+            </div>
+            <div class="offset-md-2 col-md-4">
+              <button type="button" class="btn btn-primary btn-block" (click)="addStudent()">Добавить студента</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="table table-sm" *ngIf="(students$ | async)?.length > 0; else emptyStudents">
+            <tbody>
+              <tr *ngFor="let student of students$ | async ">
+                <td>{{student.name}}
+                  <i class="details-label" *ngIf="student.group">({{student.group}})</i>
+                </td>
+                <td class="w-50">
+                  <div class="float-right">
+                    <button type="button" class="btn btn-light btn-sm" [routerLink]="['../../student-details', student._id]">Подробнее</button>
+                    <button type="button" class="btn btn-light btn-sm ml-3" (click)="removeStudent(student)">Удалить
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #emptyStudents>
+            <div class="m-2">Пока нет студентов</div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-6">
+              <h5>Предметы</h5>
+            </div>
+            <div class="offset-md-2 col-md-4">
+              <button type="button" class="btn btn-primary btn-block" (click)="addSubject()">Добавить предмет</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="table table-sm" *ngIf="(subjects$ | async)?.length > 0; else emptySubjects">
+            <tbody>
+              <tr *ngFor="let subject of subjects$ | async | filterSubjects: {name: subjectTitleFilter, speciality: specialityFilter, group: groupFilter}">
+                <td>{{subject.title}}
+                  <i class="details-label">({{subject.speciality}})</i>
+                </td>
+                <td class="w-50">
+                  <div class="float-right">
+                    <button type="button" class="btn btn-light btn-sm" [routerLink]="['../../subject-details', subject._id]">Подробнее</button>
+                    <button type="button" class="btn btn-light btn-sm ml-3" (click)="removeSubject(subject)">Удалить
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #emptySubjects>
+            <div class="m-2">Пока нет предметов</div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="card mt-4">
+    <div class="card-header">
+      <h5>Журнал</h5>
+    </div>
+    <div class="card-body">
+      Тест
+    </div>
+  </div>
+
+  <div class="card mt-4 mb-5">
+    <div class="card-header">
+      <h5>Расписание</h5>
+    </div>
+    <div class="card-body">
+      Тест
+    </div>
+  </div>
+</div>

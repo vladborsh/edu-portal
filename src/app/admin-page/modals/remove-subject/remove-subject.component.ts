@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../../../models/user.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { UserStoreService } from '../../../commons/services/user-store.service';
 import { SubjectStoreService } from '../../../commons/services/subject-store.service';
+import { Subject } from '../../../models/subject.model';
 
 @Component({
   selector: 'app-remove-subject',
@@ -11,7 +10,7 @@ import { SubjectStoreService } from '../../../commons/services/subject-store.ser
 })
 export class RemoveSubjectComponent {
 
-  @Input() item: User;
+  @Input() item: Subject;
 
   constructor(
     public activeModal: NgbActiveModal,

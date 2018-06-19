@@ -1,3 +1,37 @@
-<p>
-  new-group works!
-</p>
+<div class="modal-header">
+  <h4 class="modal-title">Добавление группы</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="newGroupForm" novalidate>
+    <div class="form-group">
+      <input [(ngModel)]="group.title" formControlName="title" type="text" name="name" class="form-control" placeholder="Название группы" readonly>
+    </div>
+    <div class="form-group">
+      <div ngbDropdown>
+        <button class="btn btn-outline-secondary btn-block" id="specialityDropdown" ngbDropdownToggle>{{group.speciality || 'Специальность'}}</button>
+        <div ngbDropdownMenu aria-labelledby="specialityDropdown">
+          <button class="dropdown-item" *ngFor="let speciality of specialites$ | async" (click)="selectSpeciality(speciality)">{{speciality.title}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div ngbDropdown>
+        <button class="btn btn-outline-secondary btn-block" id="intituteDropdown" ngbDropdownToggle>{{group.institute || 'Институт'}}</button>
+        <div ngbDropdownMenu aria-labelledby="intituteDropdown">
+          <button class="dropdown-item" *ngFor="let institute of institutes$ | async" (click)="selectInstitute(institute)">{{institute.title}}</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ngb-alert *ngIf="alert" [type]="'warning'" (close)="closeAlert()">{{ alert }}</ngb-alert>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" [disabled]="newGroupForm.invalid || !group.institute || !group.speciality"
+    (click)="submit()">
+    Создать группу
+  </button>
+  <button type="button" class="btn btn-light" (click)="activeModal.close()">Отмена</button>
+</div>

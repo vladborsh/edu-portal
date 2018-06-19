@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../models/user.model';
@@ -14,6 +14,8 @@ import { InstituteStoreService } from '../../../commons/services/institute-store
   styleUrls: ['./new-student.component.scss']
 })
 export class NewStudentComponent implements OnInit {
+
+  @Input() inputGroup: Group;
 
   public newStudentForm: FormGroup;
   public student: User;
@@ -33,6 +35,11 @@ export class NewStudentComponent implements OnInit {
     this.student = {
       educationForm: 'Дневная форма обучения',
       isBudget: true,
+    }
+    if (this.inputGroup) {
+      this.student.group = this.inputGroup.title;
+      this.student._group = this.inputGroup._id;
+      this.student.institute = this.inputGroup.institute;
     }
     this.newStudentForm = this.fb.group({
       'name' : ['', Validators.required],

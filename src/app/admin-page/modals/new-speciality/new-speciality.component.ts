@@ -26,10 +26,11 @@ export class NewSpecialityComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.speciality = {}
+    this.speciality = { groupNaming: '' }
     this.newSpecialityForm = this.fb.group({
       'title' : ['', Validators.required],
       'description' : ['', Validators.required],
+      'groupNaming' : ['', Validators.required],
     })
     this.institutes$ = this.instituteStore.getData();
   }
@@ -39,6 +40,7 @@ export class NewSpecialityComponent implements OnInit {
   }
 
   public submit() {
+    this.speciality.groupNaming = this.speciality.groupNaming.toUpperCase()
     this.specialityStore.add(this.speciality)
       .subscribe((res) => {
         if (res.success) {

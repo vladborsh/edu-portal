@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 import { Institute } from '../../models/instutute.model';
 import { Subject } from '../../models/subject.model';
 import { Group } from '../../models/group.model';
+import { ResponseModel } from '../../models/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class GroupStoreService {
       .subscribe((data: Group[]) => this.source.next(data));
   }
 
-  public add(item: Institute): Observable<Group> {
-    return this.backendService.post(`group`, item)
+  public add(item: Institute): Observable<ResponseModel<Group>> {
+    return this.backendService.post<Group,ResponseModel<Group>>(`group`, item)
       .pipe( 
         tap( () => this.update() )
       );
@@ -38,7 +39,7 @@ export class GroupStoreService {
       });
   }
 
-  public getData() {
+  public getData(): Observable<Group[]> {
     this.update();
     return this.source.asObservable();
   }
