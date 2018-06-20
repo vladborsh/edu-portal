@@ -27,3 +27,24 @@ td label {
     padding: 2em 2em 0 2em;
   }
 }
+
+.accordion {
+  .card {
+    border: none;
+    .card-header {
+      border-radius: 0;
+      padding: 1em;
+      background: $bg-light-l-color;
+      a {
+        text-decoration: underline;
+        color: $font-color-gray;
+      }
+    }
+    .card-body {
+      padding: 0.5em 2em;
+    }
+    &:last-child {
+      border: none;
+    }
+  }
+}

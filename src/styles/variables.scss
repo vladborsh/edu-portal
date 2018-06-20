@@ -8,4 +8,5 @@ $brdr-primary-color: $bg-primary-color - #111;
 $bg-danger-color: #e2767f;
 $brdr-danger-color: $bg-danger-color - #111;
 
-$bg-light-color: #f0f0f0
+$bg-light-color: #f0f0f0;
+$bg-light-l-color: $bg-light-color + #070707;

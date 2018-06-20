@@ -63,9 +63,7 @@
           <table class="table table-sm" *ngIf="(students$ | async)?.length > 0; else emptyStudents">
             <tbody>
               <tr *ngFor="let student of students$ | async ">
-                <td>{{student.name}}
-                  <i class="details-label" *ngIf="student.group">({{student.group}})</i>
-                </td>
+                <td>{{student.name}}</td>
                 <td class="w-50">
                   <div class="float-right">
                     <button type="button" class="btn btn-light btn-sm" [routerLink]="['../../student-details', student._id]">Подробнее</button>
@@ -99,10 +97,8 @@
         <div class="card-body">
           <table class="table table-sm" *ngIf="(subjects$ | async)?.length > 0; else emptySubjects">
             <tbody>
-              <tr *ngFor="let subject of subjects$ | async | filterSubjects: {name: subjectTitleFilter, speciality: specialityFilter, group: groupFilter}">
-                <td>{{subject.title}}
-                  <i class="details-label">({{subject.speciality}})</i>
-                </td>
+              <tr *ngFor="let subject of subjects$ | async">
+                <td>{{subject.title}}</td>
                 <td class="w-50">
                   <div class="float-right">
                     <button type="button" class="btn btn-light btn-sm" [routerLink]="['../../subject-details', subject._id]">Подробнее</button>
@@ -115,7 +111,7 @@
             </tbody>
           </table>
           <ng-template #emptySubjects>
-            <div class="m-2">Пока нет предметов</div>
+              <div class="m-2">Пока нет предметов</div>
           </ng-template>
         </div>
       </div>
@@ -126,10 +122,40 @@
 
   <div class="card mt-4">
     <div class="card-header">
-      <h5>Журнал</h5>
+      <h5>Журналы</h5>
     </div>
     <div class="card-body">
-      Тест
+      <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+        <ngb-panel *ngFor="let journal of (group$ | async)?.journals">
+          <ng-template ngbPanelTitle>
+            {{journal._subject.title}}
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <table class="table table-sm">
+              <thead>
+                <th class="w-25"></th>
+                <th *ngFor="let mark of journal.journalRows[0].marks">
+                  <input [(ngModel)]="mark.input" type="text" class="form-control" placeholder="-">
+                </th>
+                <th style="width:50px">
+                  <button type="button" class="btn btn-light btn-sm" (click)="addMarksRow(journal)">
+                    + Оценки
+                  </button>
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let journalRow of journal.journalRows">
+                  <td class="w-25">{{journalRow._student.name}}</td>
+                  <td *ngFor="let mark of journalRow.marks">
+                    <input [(ngModel)]="mark.input" type="text" class="form-control" placeholder="-">
+                  </td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
     </div>
   </div>
 
@@ -138,7 +164,28 @@
       <h5>Расписание</h5>
     </div>
     <div class="card-body">
-      Тест
+      <table class="table table-sm">
+        <thead>
+          <th></th>
+          <th *ngFor="let day of ['Понедельник','Вторник','Среда','Четверг','Пятница']" class="text-center">{{day}}</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let orderNum of [1,2,3,4,5]">
+            <td>{{orderNum}} пара</td>
+            <td *ngFor="let dayOfWeek of [1,2,3,4,5]">
+              <div ngbDropdown>
+                <button class="btn btn-light btn-block" id="specialityDropdown" ngbDropdownToggle>{{'Предмет'}}</button>
+                <div ngbDropdownMenu aria-labelledby="specialityDropdown">
+                  <button 
+                    *ngFor="let subject of subjects$ | async" 
+                    (click)="schedulSubject(subject)"
+                    class="dropdown-item" >{{subject.title}}</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

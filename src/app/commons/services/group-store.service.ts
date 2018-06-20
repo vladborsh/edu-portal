@@ -13,6 +13,7 @@ import { ResponseModel } from '../../models/response.model';
 export class GroupStoreService {
 
   private source = new BehaviorSubject<Group[]>([]);
+  private details = new BehaviorSubject<Group>({});
   
   constructor(private backendService: BackendService) { }
 
@@ -42,6 +43,12 @@ export class GroupStoreService {
   public getData(): Observable<Group[]> {
     this.update();
     return this.source.asObservable();
+  }
+
+  public getDataDetails(id: string): Observable<Group> {
+    this.backendService.get(`group/${id}`)
+      .subscribe((data: Group) => this.details.next(data));
+    return this.details.asObservable();
   }
 
 }

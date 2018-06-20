@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap, take, filter, last, map, tap } from 'rxjs/operators';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Observable, Subscriber, interval } from 'rxjs';
+import { switchMap, take, filter, last, map, tap, distinctUntilChanged, share } from 'rxjs/operators';
 import { GroupStoreService } from '../../commons/services/group-store.service';
 import { Group } from '../../models/group.model';
 import { User } from '../../models/user.model';
@@ -24,6 +24,7 @@ export class GroupDetailsComponent implements OnInit {
   public group$: Observable<Group>;
   public subjects$: Observable<Subject[]>;
   public students$: Observable<User[]>;
+  public group: Group;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,65 +35,42 @@ export class GroupDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.group$ = this.groupStore.getData()
-      .pipe( 
-        switchMap( (groups: Group[]) => new Observable(
-          (observer) =>
-            this.route.params.pipe(
-              take(1)
-            )
-            .subscribe( params => observer.next( groups.find( (group: Group) => group._id === params['id'])))
-        ))
-      )
+    this.group$ =this.route.params
+        .pipe(
+          map((params: Params) => params.id),
+          switchMap((id: string) => this.groupStore.getDataDetails(id)),
+          tap((group: Group)=> this.fillChildObjects(group)),
+          tap((group: Group)=> this.group = group),
+          share()
+        );
+  }
+
+  fillChildObjects(group: Group) {
     this.students$ = this.userStore.getStudents()
       .pipe( 
-        switchMap( (users: User[]) => 
-          this.group$
-            .pipe(
-              map( (group: Group) => users.filter( (user: User) => user.group === group.title ) )
-            )
-        )
+        map((users: User[]) => users.filter( (user: User) => user.group === group.title ) )
       );
     this.subjects$ = this.subjectStore.getData()
       .pipe( 
-        switchMap( (subjects: Subject[]) => 
-          this.group$
-            .pipe(
-              map( (group: Group) => subjects.filter( (subject: Subject) => subject.group === group.title ) )
-            )
-        )
+        map((subjects: Subject[]) => subjects.filter( (subject: Subject) => subject.group === group.title ) )
       );
   }
 
   addStudent() {
-    this.group$
-      .pipe(
-        take(1)
-      )
-      .subscribe(
-        (group: Group) => {
-          const modalRef = this.modalService.open(NewStudentComponent);
-          modalRef.componentInstance.inputGroup = group;
-        }
-      )
+    const modalRef = this.modalService.open(NewStudentComponent);
+    modalRef.componentInstance.inputGroup = this.group;
+    modalRef.result.then(() => this.groupStore.getDataDetails(this.group._id))
   }
 
   removeStudent(item) {
     const modalRef = this.modalService.open(RemoveStudentComponent);
     modalRef.componentInstance.item = item;
+    modalRef.result.then(() => this.groupStore.getDataDetails(this.group._id))
   }
 
   addSubject() {
-    this.group$
-      .pipe(
-        take(1)
-      )
-      .subscribe(
-        (group: Group) => {
-          const modalRef = this.modalService.open(NewSubjectComponent);
-          modalRef.componentInstance.inputGroup = group;
-        }
-      )
+    const modalRef = this.modalService.open(NewSubjectComponent);
+    modalRef.componentInstance.inputGroup = this.group;
   }
 
   removeSubject(item) {
