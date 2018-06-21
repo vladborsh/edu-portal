@@ -132,8 +132,8 @@
             <th class="w-25"></th>
             <th *ngFor="let markDate of journal.marksDate; let index = index" style="width:80px">
               <input 
-                [value]="markDate || ''"
-                (change)="selectDate(journal)" 
+                [value]="markDate"
+                (blur)="selectDate(journal,index,$event)" 
                 class="form-control form-control-sm" placeholder="00/00">
             </th>
             <th style="width:50px">
@@ -183,6 +183,9 @@
                     *ngFor="let subject of subjects$ | async" 
                     (click)="scheduleSubject(subject,orderIndex,dayOfWeekIndex)" 
                     class="dropdown-item">{{subject.title}}</button>
+                  <button 
+                    (click)="scheduleSubject({title:''},orderIndex,dayOfWeekIndex)" 
+                    class="dropdown-item">-</button>
                 </div>
               </div>
             </td>

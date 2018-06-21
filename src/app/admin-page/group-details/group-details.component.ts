@@ -42,14 +42,17 @@ export class GroupDetailsComponent implements OnInit {
         .pipe(
           map((params: Params) => params.id),
           switchMap((id: string) => this.groupStore.getDataDetails(id)),
-          tap((group: Group)=> this.fillChildObjects(group)),
-          tap((group: Group)=> this.group = group),
+          filter((group:Group) => group._id !== undefined),
+          tap((group: Group)=> {
+            this.group = group;
+            console.log(group)
+            this.fillChildObjects(group)
+          }),
           share()
         );
   }
 
   fillChildObjects(group: Group) {
-    this.groupStore.fetchScheduling();
     this.students$ = this.userStore.getStudents()
       .pipe( 
         map((users: User[]) => users.filter( (user: User) => user.group === group.title ) )
@@ -58,7 +61,7 @@ export class GroupDetailsComponent implements OnInit {
       .pipe( 
         map((subjects: Subject[]) => subjects.filter( (subject: Subject) => subject.group === group.title ) )
       );
-    this.groupStore.getSchedulingData()
+    this.groupStore.getSchedulingData(group)
       .pipe(
         tap( value => console.log(value)),
         map( (items: Scheduling[]) => this.getShedulingTable(items) ),
@@ -106,19 +109,34 @@ export class GroupDetailsComponent implements OnInit {
       .subscribe()
   }
 
+  selectDate(journal: Journal, index: number, event: any) {
+    journal.marksDate[index] = event.target.value;
+    this.groupStore.setJournalMarksDate(journal)
+      .pipe(
+        switchMap(
+          () => this.groupStore.getDataDetails(this.group._id).pipe(
+            take(1)
+          )
+        ),
+        take(1)
+      )
+      .subscribe()
+  }
+
   changeMark(mark: Mark) {
     this.groupStore.changeMark(mark).pipe(take(1)).subscribe()
   }
 
   scheduleSubject(subject: Subject, orderIndex: number, dayOfWeekIndex: number) {
-    this.groupStore.scheduleSubject({
+    this.groupStore.scheduleSubject(
+      this.group,
+      {
         _group: this.group._id,
         _subject: subject._id,
         weekDay: dayOfWeekIndex,
         orderNumber: orderIndex,
       })
-      .pipe(take(1))
-      .subscribe(data => console.log(data));
+      .pipe(take(1));
   }
 
   getShedulingTable(items: Scheduling[]): any {
@@ -126,7 +144,10 @@ export class GroupDetailsComponent implements OnInit {
     [1,2,3,4,5].forEach( item => 
       table.push(['','','','',''])
     )
-    items.forEach( (item:Scheduling) => table[item.orderNumber][item.orderNumber] = (<Subject>item._subject).title);
+    items.forEach( (item:Scheduling) => table[item.orderNumber][item.weekDay] = 
+      item._subject 
+        ? (<Subject>item._subject).title
+        : '')
     return table;
   }
 }

@@ -53,8 +53,8 @@ export class GroupStoreService {
     return this.details.asObservable();
   }
 
-  public getSchedulingData(): Observable<Scheduling[]> {
-    this.fetchScheduling();
+  public getSchedulingData(group: Group): Observable<Scheduling[]> {
+    this.fetchScheduling(group);
     return this.scheduling.asObservable()
   }
 
@@ -62,30 +62,29 @@ export class GroupStoreService {
     return this.backendService.post(`group/extend_journal/${journal._id}`, journal)
   }
 
+  public setJournalMarksDate(journal: Journal): Observable<Journal> {
+    return this.backendService.post(`group/journal_makrs_date/${journal._id}`, journal)
+  }
+
   public changeMark(mark: Mark): Observable<Mark> {
     return this.backendService.post(`group/mark/${mark._id}`, mark);
   }
 
-  public scheduleSubject(scheduling: Scheduling): Observable<Scheduling> {
+  public scheduleSubject(group: Group, scheduling: Scheduling): Observable<Scheduling> {
     let obs = scheduling._id
       ? this.backendService.post(`schedule/${scheduling._id}`, scheduling)
       : this.backendService.post(`schedule`, scheduling);
-    obs.subscribe(
-      tap(() => this.fetchScheduling())
-    )
+    obs.pipe(
+      tap( value => console.log(value)),
+      tap( value => this.fetchScheduling(group))
+    ).subscribe()
     return obs;
   }
 
-  public fetchScheduling():Observable<Scheduling[]> {
+  public fetchScheduling(group: Group) {
     console.log('fetchScheduling')
-    let obs = this.details.asObservable()
-      .pipe(
-        filter( group => group._id !== undefined ),
-        switchMap( group => this.backendService.get<Scheduling[]>(`schedule/${group._id}`))
-      )
-    obs.subscribe((data: Scheduling[]) => this.scheduling.next(data));
-    return obs;
-      
+    this.backendService.get<Scheduling[]>(`schedule/${group._id}`)
+      .subscribe((data: Scheduling[]) => this.scheduling.next(data));
   } 
 
 }
