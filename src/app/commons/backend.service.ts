@@ -28,7 +28,7 @@ export class BackendService {
   private getOptions() {
     const headers = new HttpHeaders({
       'Content-Type': "application/json; charset=utf-8",
-      'X-Access-Token' : localStorage.getItem("token")
+      'X-Access-Token' : localStorage.getItem("token") || ''
     })
     return {
       headers
