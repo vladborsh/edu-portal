@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-8 p-4" *ngIf="group$ | async">
           <div class="mb-3">
-            <h4>{{ (group$ | async)?.title }}</h4>
+            <h4>{{ group.title }}</h4>
           </div>
           <table class="table">
             <tbody>
@@ -18,7 +18,7 @@
                   <label class="details-label">Институт:</label>
                 </td>
                 <td>
-                  {{ (group$ | async)?.institute }}
+                  {{ group.institute }}
                 </td>
               </tr>
               <tr>
@@ -26,7 +26,7 @@
                   <label class="details-label">Специальность:</label>
                 </td>
                 <td>
-                  {{ (group$ | async)?.speciality }}
+                  {{ group.speciality }}
                 </td>
               </tr>
               <tr>
@@ -34,7 +34,7 @@
                   <label class="details-label">Дата создания:</label>
                 </td>
                 <td>
-                  {{ (group$ | async)?.createdDate | date }}
+                  {{ group.createdDate | date }}
                 </td>
               </tr>
             </tbody>
