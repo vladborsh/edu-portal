@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { BackendService } from '../../commons/backend.service';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap, withLatestFrom, map, filter } from 'rxjs/operators';
 import { Institute } from '../../models/instutute.model';
 import { Subject } from '../../models/subject.model';
-import { Group } from '../../models/group.model';
+import { Group, Journal, Mark } from '../../models/group.model';
 import { ResponseModel } from '../../models/response.model';
+import { Scheduling } from '../../models/schedule.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class GroupStoreService {
 
   private source = new BehaviorSubject<Group[]>([]);
   private details = new BehaviorSubject<Group>({});
+  private scheduling = new BehaviorSubject<Scheduling[]>([]);
   
   constructor(private backendService: BackendService) { }
 
@@ -50,5 +52,40 @@ export class GroupStoreService {
       .subscribe((data: Group) => this.details.next(data));
     return this.details.asObservable();
   }
+
+  public getSchedulingData(): Observable<Scheduling[]> {
+    this.fetchScheduling();
+    return this.scheduling.asObservable()
+  }
+
+  public extendJournal(journal: Journal): Observable<Journal> {
+    return this.backendService.post(`group/extend_journal/${journal._id}`, journal)
+  }
+
+  public changeMark(mark: Mark): Observable<Mark> {
+    return this.backendService.post(`group/mark/${mark._id}`, mark);
+  }
+
+  public scheduleSubject(scheduling: Scheduling): Observable<Scheduling> {
+    let obs = scheduling._id
+      ? this.backendService.post(`schedule/${scheduling._id}`, scheduling)
+      : this.backendService.post(`schedule`, scheduling);
+    obs.subscribe(
+      tap(() => this.fetchScheduling())
+    )
+    return obs;
+  }
+
+  public fetchScheduling():Observable<Scheduling[]> {
+    console.log('fetchScheduling')
+    let obs = this.details.asObservable()
+      .pipe(
+        filter( group => group._id !== undefined ),
+        switchMap( group => this.backendService.get<Scheduling[]>(`schedule/${group._id}`))
+      )
+    obs.subscribe((data: Scheduling[]) => this.scheduling.next(data));
+    return obs;
+      
+  } 
 
 }

@@ -111,7 +111,7 @@
             </tbody>
           </table>
           <ng-template #emptySubjects>
-              <div class="m-2">Пока нет предметов</div>
+            <div class="m-2">Пока нет предметов</div>
           </ng-template>
         </div>
       </div>
@@ -125,37 +125,39 @@
       <h5>Журналы</h5>
     </div>
     <div class="card-body">
-      <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-        <ngb-panel *ngFor="let journal of (group$ | async)?.journals">
-          <ng-template ngbPanelTitle>
-            {{journal._subject.title}}
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <table class="table table-sm">
-              <thead>
-                <th class="w-25"></th>
-                <th *ngFor="let mark of journal.journalRows[0].marks">
-                  <input [(ngModel)]="mark.input" type="text" class="form-control" placeholder="-">
-                </th>
-                <th style="width:50px">
-                  <button type="button" class="btn btn-light btn-sm" (click)="addMarksRow(journal)">
-                    + Оценки
-                  </button>
-                </th>
-              </thead>
-              <tbody>
-                <tr *ngFor="let journalRow of journal.journalRows">
-                  <td class="w-25">{{journalRow._student.name}}</td>
-                  <td *ngFor="let mark of journalRow.marks">
-                    <input [(ngModel)]="mark.input" type="text" class="form-control" placeholder="-">
-                  </td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
+      <div *ngFor="let journal of (group$ | async)?.journals">
+        <h6>{{journal._subject.title}}</h6>
+        <table class="table table-sm">
+          <thead>
+            <th class="w-25"></th>
+            <th *ngFor="let markDate of journal.marksDate; let index = index" style="width:80px">
+              <input 
+                [value]="markDate || ''"
+                (change)="selectDate(journal)" 
+                class="form-control form-control-sm" placeholder="00/00">
+            </th>
+            <th style="width:50px">
+              <button type="button" class="btn btn-light btn-sm" (click)="addMarksRow(journal)">
+                + Оценки
+              </button>
+            </th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let journalRow of journal.journalRows">
+              <td class="w-25">{{journalRow._student.name}}</td>
+              <td *ngFor="let mark of journalRow.marks">
+                <input 
+                  [(ngModel)]="mark.mark" 
+                  (change)="changeMark(mark)" 
+                  type="text" class="form-control form-control-sm mark-input" placeholder="-">
+              </td>
+              <td style="width:50px"></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -164,25 +166,27 @@
       <h5>Расписание</h5>
     </div>
     <div class="card-body">
-      <table class="table table-sm">
+      <table class="table table-sm table-borderless">
         <thead>
           <th></th>
           <th *ngFor="let day of ['Понедельник','Вторник','Среда','Четверг','Пятница']" class="text-center">{{day}}</th>
+          <th></th>
         </thead>
         <tbody>
-          <tr *ngFor="let orderNum of [1,2,3,4,5]">
-            <td>{{orderNum}} пара</td>
-            <td *ngFor="let dayOfWeek of [1,2,3,4,5]">
+          <tr *ngFor="let scheduleRow of schedulingTable; let orderIndex = index">
+            <td>{{orderIndex+1}} пара</td>
+            <td *ngFor="let subjectTitle of scheduleRow; let dayOfWeekIndex = index" style="width: 12em">
               <div ngbDropdown>
-                <button class="btn btn-light btn-block" id="specialityDropdown" ngbDropdownToggle>{{'Предмет'}}</button>
+                <button class="btn btn-light btn-block" id="specialityDropdown" ngbDropdownToggle>{{subjectTitle || ''}}</button>
                 <div ngbDropdownMenu aria-labelledby="specialityDropdown">
                   <button 
                     *ngFor="let subject of subjects$ | async" 
-                    (click)="schedulSubject(subject)"
-                    class="dropdown-item" >{{subject.title}}</button>
+                    (click)="scheduleSubject(subject,orderIndex,dayOfWeekIndex)" 
+                    class="dropdown-item">{{subject.title}}</button>
                 </div>
               </div>
             </td>
+            <td></td>
           </tr>
         </tbody>
       </table>

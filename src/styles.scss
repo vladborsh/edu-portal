@@ -41,3 +41,10 @@ table tr:first-child td {
 .details-label {
   color: $font-color-gray-l;
 }
+
+input.mark-input {
+  line-height: 7px;
+  width: 30px;
+  border: none;
+  background: #e9e9ff;
+}

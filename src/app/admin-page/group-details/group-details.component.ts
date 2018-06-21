@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, Subscriber, interval } from 'rxjs';
 import { switchMap, take, filter, last, map, tap, distinctUntilChanged, share } from 'rxjs/operators';
 import { GroupStoreService } from '../../commons/services/group-store.service';
-import { Group } from '../../models/group.model';
+import { Group, Journal, Mark } from '../../models/group.model';
 import { User } from '../../models/user.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserStoreService } from '../../commons/services/user-store.service';
@@ -13,6 +13,7 @@ import { Subject } from '../../models/subject.model';
 import { SubjectStoreService } from '../../commons/services/subject-store.service';
 import { NewSubjectComponent } from '../modals/new-subject/new-subject.component';
 import { RemoveSubjectComponent } from '../modals/remove-subject/remove-subject.component';
+import { Scheduling } from '../../models/schedule.model';
 
 @Component({
   selector: 'app-group-details',
@@ -24,7 +25,9 @@ export class GroupDetailsComponent implements OnInit {
   public group$: Observable<Group>;
   public subjects$: Observable<Subject[]>;
   public students$: Observable<User[]>;
+  public scheduling$: Observable<Scheduling[]>;
   public group: Group;
+  public schedulingTable: [[string]];
 
   constructor(
     private route: ActivatedRoute,
@@ -46,6 +49,7 @@ export class GroupDetailsComponent implements OnInit {
   }
 
   fillChildObjects(group: Group) {
+    this.groupStore.fetchScheduling();
     this.students$ = this.userStore.getStudents()
       .pipe( 
         map((users: User[]) => users.filter( (user: User) => user.group === group.title ) )
@@ -54,6 +58,15 @@ export class GroupDetailsComponent implements OnInit {
       .pipe( 
         map((subjects: Subject[]) => subjects.filter( (subject: Subject) => subject.group === group.title ) )
       );
+    this.groupStore.getSchedulingData()
+      .pipe(
+        tap( value => console.log(value)),
+        map( (items: Scheduling[]) => this.getShedulingTable(items) ),
+        share(),
+      )
+      .subscribe(
+        (items: [[string]]) => this.schedulingTable = items
+      )
   }
 
   addStudent() {
@@ -71,12 +84,50 @@ export class GroupDetailsComponent implements OnInit {
   addSubject() {
     const modalRef = this.modalService.open(NewSubjectComponent);
     modalRef.componentInstance.inputGroup = this.group;
+    modalRef.result.then(() => this.groupStore.getDataDetails(this.group._id))
   }
 
   removeSubject(item) {
     const modalRef = this.modalService.open(RemoveSubjectComponent);
     modalRef.componentInstance.item = item;
+    modalRef.result.then(() => this.groupStore.getDataDetails(this.group._id))
   }
 
+  addMarksRow(journal: Journal) {
+    this.groupStore.extendJournal(journal)
+      .pipe(
+        switchMap(
+          () => this.groupStore.getDataDetails(this.group._id).pipe(
+            take(1)
+          )
+        ),
+        take(1)
+      )
+      .subscribe()
+  }
+
+  changeMark(mark: Mark) {
+    this.groupStore.changeMark(mark).pipe(take(1)).subscribe()
+  }
+
+  scheduleSubject(subject: Subject, orderIndex: number, dayOfWeekIndex: number) {
+    this.groupStore.scheduleSubject({
+        _group: this.group._id,
+        _subject: subject._id,
+        weekDay: dayOfWeekIndex,
+        orderNumber: orderIndex,
+      })
+      .pipe(take(1))
+      .subscribe(data => console.log(data));
+  }
+
+  getShedulingTable(items: Scheduling[]): any {
+    const table = [];
+    [1,2,3,4,5].forEach( item => 
+      table.push(['','','','',''])
+    )
+    items.forEach( (item:Scheduling) => table[item.orderNumber][item.orderNumber] = (<Subject>item._subject).title);
+    return table;
+  }
 }
 
