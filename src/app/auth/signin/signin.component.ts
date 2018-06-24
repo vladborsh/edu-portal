@@ -6,7 +6,7 @@ import { tap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthModel } from '../../models/auth.model';
 import { AuthStoreService } from '../services/auth-store.service';
-import { UserInfoService } from '../../commons/services/user-info.service';
+import { UserStoreService } from '../../commons/services/user-store.service';
 
 @Component({
   selector: 'app-signin',
@@ -22,7 +22,7 @@ export class SigninComponent implements OnInit {
     private router: Router,
     private backend: BackendService,
     private authStore: AuthStoreService,
-    private userInfo: UserInfoService
+    private userStore: UserStoreService
   ) { }
 
   ngOnInit() {
@@ -50,9 +50,10 @@ export class SigninComponent implements OnInit {
   processAuthorization(data: AuthModel) : void {
     if (data.success) {
       localStorage.setItem('token', data.token);
-      this.userInfo.getData(data.id)
+      this.userStore.getDetails(data.id)
         .subscribe(
           (user: User) => {
+            console.log(user)
             if (user.role === 'Admin') this.router.navigate(['../../admin']);
             else this.router.navigate(['../../user']);
           }

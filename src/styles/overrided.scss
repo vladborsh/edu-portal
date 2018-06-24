@@ -21,6 +21,9 @@ td label {
 }
 
 .card {
+  border: none;
+  &:hover {
+  }
   .card-header {
     background: #fff;
     border: none;

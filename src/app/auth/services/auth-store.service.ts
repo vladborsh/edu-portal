@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../../models/user.model';
-import { BackendService } from '../../commons/backend.service';
-import { tap } from 'rxjs/operators';
+
+export interface UserAuthModel {
+  id: string,
+  role: string,
+}
 
 export interface AuthStoreModel {
-  alert?: {}
+  alert?: {},
+  user?: User
 }
 
 @Injectable({

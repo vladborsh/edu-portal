@@ -16,8 +16,11 @@ export class SubjectStoreService {
   
   constructor(private backendService: BackendService) { }
 
-  public update(){
-    this.backendService.get('subject')
+  public update(user?: User){
+    let query = (user && user._group)
+      ? `subject?user_group=${user._group}`
+      : `subject`;
+    this.backendService.get(query)
       .subscribe((data: Subject[]) => this.source.next(data));
   }
 
@@ -39,8 +42,8 @@ export class SubjectStoreService {
       });
   }
 
-  public getData(): Observable<Subject[]> {
-    this.update();
+  public getData(user?: User): Observable<Subject[]> {
+    this.update(user);
     return this.source.asObservable();
   }
 

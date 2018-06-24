@@ -12,10 +12,16 @@ import { ResponseModel } from '../../models/response.model';
 export class UserStoreService {
 
   private source = new BehaviorSubject<User[]>([]);
+  private datailsSource = new BehaviorSubject<User>({});
   
   constructor(private backendService: BackendService) { }
 
-  update(){
+  public updateDetails(id: string) {
+    this.backendService.get(`user/${id}`)
+      .subscribe((data: User) => this.datailsSource.next(data));
+  }
+
+  public update(){
     this.backendService.get('user')
       .subscribe((data: User[]) => this.source.next(data));
   }
@@ -50,6 +56,11 @@ export class UserStoreService {
     return this.source.asObservable().pipe(
       map( (users: User[]) => users.filter((user: User) => user.role === 'Teacher') )
     );
+  }
+
+  public getDetails(id?: string): Observable<User> {
+    if (id) this.updateDetails(id);
+    return this.datailsSource.asObservable();
   }
 
 }

@@ -41,7 +41,7 @@
   <ngb-alert *ngIf="alert" [type]="'warning'" (close)="closeAlert()">{{ alert }}</ngb-alert>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" [disabled]="newSubjectForm.invalid || !subject.group || !subject.speciality"
+  <button type="button" class="btn btn-primary" [disabled]="newSubjectForm.invalid || !subject.group || !subject.speciality || !subject._teacher"
     (click)="submit()">
     Создать предмет
   </button>

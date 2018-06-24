@@ -45,7 +45,7 @@ export class NewSubjectComponent implements OnInit {
     }
     this.newSubjectForm = this.fb.group({
       'title' : ['', Validators.required],
-      'description' : ['', Validators.required],
+      'description' : ['',],
     })
     this.specialites$ = this.specialityStore.getData();
     this.teachers$ = this.specialityStore.getData();

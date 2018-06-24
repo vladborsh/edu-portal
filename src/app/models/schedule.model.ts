@@ -7,5 +7,6 @@ export interface Scheduling {
     _group?: string,
     weekDay?: number,
     orderNumber?: number,
+    type?: string,
     createdDate?: string,
 }

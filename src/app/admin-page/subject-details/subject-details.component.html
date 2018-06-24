@@ -39,6 +39,14 @@
               </tr>
               <tr>
                 <td>
+                  <label class="details-label">Преподаватель:</label>
+                </td>
+                <td>
+                  {{ (subject$ | async)?._teacher.name }}
+                </td>
+              </tr>
+              <tr>
+                <td>
                   <label class="details-label">Дата создания:</label>
                 </td>
                 <td>

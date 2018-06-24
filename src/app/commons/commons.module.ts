@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { BackendService } from './backend.service';
 import { SpecialityStoreService } from './services/speciality-store.service';
 import { UserStoreService } from './services/user-store.service';
-import { UserInfoService } from './services/user-info.service';
 import { InstituteStoreService } from './services/institute-store.service';
 import { LetDirective } from './directives/let.directive';
 
@@ -25,7 +24,6 @@ export class CommonsModule {
         UserStoreService,
         SpecialityStoreService, 
         InstituteStoreService,
-        UserInfoService, 
       ]
     };
   }

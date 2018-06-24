@@ -130,11 +130,19 @@
         <table class="table table-sm">
           <thead>
             <th class="w-25"></th>
-            <th *ngFor="let markDate of journal.marksDate; let index = index" style="width:80px">
+            <th *ngFor="let markDate of journal.marksDate; let index = index" style="width:100px">
               <input 
                 [value]="markDate"
                 (blur)="selectDate(journal,index,$event)" 
                 class="form-control form-control-sm" placeholder="00/00">
+                
+              <!-- <input class="form-control" 
+                [value]="markDate" 
+                (blur)="selectDate(journal,index,$event)" 
+                (click)="d.toggle()" 
+                ngbDatepicker 
+                #d="ngbDatepicker"
+                placeholder="yyyy-mm-dd"> -->
             </th>
             <th style="width:50px">
               <button type="button" class="btn btn-light btn-sm" (click)="addMarksRow(journal)">
@@ -188,6 +196,18 @@
                     class="dropdown-item">-</button>
                 </div>
               </div>
+              <!-- <div ngbDropdown ngIf="subjectTitle">
+                <button class="btn btn-light btn-block" id="specialityDropdown" ngbDropdownToggle>{{type}}</button>
+                <div ngbDropdownMenu aria-labelledby="specialityDropdown">
+                  <button 
+                    *ngFor="let subject of subjects$ | async" 
+                    (click)="scheduleSubject(subject,orderIndex,dayOfWeekIndex)" 
+                    class="dropdown-item">{{subject.title}}</button>
+                  <button 
+                    (click)="scheduleSubject({title:''},orderIndex,dayOfWeekIndex)" 
+                    class="dropdown-item">-</button>
+                </div>
+              </div> -->
             </td>
             <td></td>
           </tr>

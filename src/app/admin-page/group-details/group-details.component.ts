@@ -39,17 +39,17 @@ export class GroupDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.group$ =this.route.params
-        .pipe(
-          map((params: Params) => params.id),
-          switchMap((id: string) => this.groupStore.getDataDetails(id)),
-          filter((group:Group) => group._id !== undefined),
-          tap((group: Group)=> {
-            this.group = group;
-            console.log(group)
-            this.fillChildObjects(group)
-          }),
-          share()
-        );
+      .pipe(
+        map((params: Params) => params.id),
+        switchMap((id: string) => this.groupStore.getDataDetails(id)),
+        filter((group:Group) => group._id !== undefined),
+        tap((group: Group)=> {
+          this.group = group;
+          console.log(group)
+          this.fillChildObjects(group)
+        }),
+        share()
+      );
   }
 
   fillChildObjects(group: Group) {
@@ -127,14 +127,15 @@ export class GroupDetailsComponent implements OnInit {
     this.groupStore.changeMark(mark).pipe(take(1)).subscribe()
   }
 
-  scheduleSubject(subject: Subject, orderIndex: number, dayOfWeekIndex: number) {
+  scheduleSubject(subject: Subject, orderNumber: number, weekDay: number, type: string) {
     this.groupStore.scheduleSubject(
       this.group,
       {
         _group: this.group._id,
         _subject: subject._id,
-        weekDay: dayOfWeekIndex,
-        orderNumber: orderIndex,
+        weekDay,
+        orderNumber,
+        type,
       })
       .pipe(take(1));
   }

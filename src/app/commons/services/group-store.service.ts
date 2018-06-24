@@ -19,8 +19,11 @@ export class GroupStoreService {
   
   constructor(private backendService: BackendService) { }
 
-  public update(){
-    this.backendService.get('group')
+  public update(teacherId?: string){
+    let query = teacherId
+      ? `group?_teacher=${teacherId}`
+      : `group`
+    this.backendService.get(query)
       .subscribe((data: Group[]) => this.source.next(data));
   }
 
@@ -42,8 +45,8 @@ export class GroupStoreService {
       });
   }
 
-  public getData(): Observable<Group[]> {
-    this.update();
+  public getData(teacherId?: string): Observable<Group[]> {
+    this.update(teacherId);
     return this.source.asObservable();
   }
 
@@ -71,6 +74,7 @@ export class GroupStoreService {
   }
 
   public scheduleSubject(group: Group, scheduling: Scheduling): Observable<Scheduling> {
+    if (scheduling.type === undefined) scheduling.type = 'Лекция';
     let obs = scheduling._id
       ? this.backendService.post(`schedule/${scheduling._id}`, scheduling)
       : this.backendService.post(`schedule`, scheduling);
