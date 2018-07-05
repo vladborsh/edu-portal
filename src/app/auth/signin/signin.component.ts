@@ -50,6 +50,7 @@ export class SigninComponent implements OnInit {
   processAuthorization(data: AuthModel) : void {
     if (data.success) {
       localStorage.setItem('token', data.token);
+      localStorage.setItem('uid', data.id);
       this.userStore.getDetails(data.id)
         .subscribe(
           (user: User) => {

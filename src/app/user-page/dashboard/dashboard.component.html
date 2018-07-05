@@ -1,9 +1,29 @@
-<div class="card">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-12">
-          <h5>Расписание</h5>
-        </div>
-      </div>
-    </div>
+<div class="card mt-4 mb-5">
+  <div class="card-header">
+    <h5>Расписание</h5>
   </div>
+  <div class="card-body">
+    <table class="table table-sm table-borderless">
+      <thead>
+        <th></th>
+        <th *ngFor="let day of ['Понедельник','Вторник','Среда','Четверг','Пятница']" class="text-center">{{day}}</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let scheduleRow of schedulingTable; let orderIndex = index">
+          <td>{{orderIndex+1}} пара</td>
+          <td *ngFor="let subjectTitle of scheduleRow; let dayOfWeekIndex = index" style="width: 12em">
+            <div ngbDropdown>
+              <button class="btn btn-light btn-block" id="specialityDropdown" ngbDropdownToggle>{{subjectTitle || ''}}</button>
+              <div ngbDropdownMenu aria-labelledby="specialityDropdown">
+                <button *ngFor="let subject of subjects$ | async" (click)="scheduleSubject(subject,orderIndex,dayOfWeekIndex)" class="dropdown-item">{{subject.title}}</button>
+                <button (click)="scheduleSubject({title:''},orderIndex,dayOfWeekIndex)" class="dropdown-item">-</button>
+              </div>
+            </div>
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

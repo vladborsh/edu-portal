@@ -59,7 +59,8 @@ export class UserStoreService {
   }
 
   public getDetails(id?: string): Observable<User> {
-    if (id) this.updateDetails(id);
+    if (!id) id = localStorage.getItem('uid');
+    this.updateDetails(id);
     return this.datailsSource.asObservable();
   }
 

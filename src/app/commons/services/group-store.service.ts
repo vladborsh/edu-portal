@@ -79,15 +79,13 @@ export class GroupStoreService {
       ? this.backendService.post(`schedule/${scheduling._id}`, scheduling)
       : this.backendService.post(`schedule`, scheduling);
     obs.pipe(
-      tap( value => console.log(value)),
       tap( value => this.fetchScheduling(group))
     ).subscribe()
     return obs;
   }
 
   public fetchScheduling(group: Group) {
-    console.log('fetchScheduling')
-    this.backendService.get<Scheduling[]>(`schedule/${group._id}`)
+    this.backendService.get<Scheduling[]>(`schedule/?group=${group._id}`)
       .subscribe((data: Scheduling[]) => this.scheduling.next(data));
   } 
 
